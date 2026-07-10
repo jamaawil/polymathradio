@@ -1,0 +1,23 @@
+{{!< default}}
+
+{{!-- Same lesson as index-read.hbs: the Reports/Merch/Certificates
+      collections below claim every tagged product for their own
+      posts/pagination loop, so "All" fetches directly by tag instead. --}}
+
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9670; Shop</p>
+    <h1>Shop</h1>
+    <p>Support the work you read, watch, and listen to — reports, merch, and certificate access.</p>
+</section>
+
+{{> "shop-category-tabs" current="all"}}
+
+{{#get "posts" filter="primary_tag:shop" limit="20" as |allProducts|}}
+<section class="product-grid">
+    {{#foreach allProducts}}
+    {{> "product-card"}}
+    {{else}}
+    <p class="archive-empty">Nothing in the shop yet.</p>
+    {{/foreach}}
+</section>
+{{/get}}

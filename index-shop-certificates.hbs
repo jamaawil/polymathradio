@@ -1,0 +1,19 @@
+{{!< default}}
+
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9670; Shop &middot; Certificates</p>
+    <h1>Certificate access</h1>
+    <p>One-time access to a single Learn program, no membership required.</p>
+</section>
+
+{{> "shop-category-tabs" current="certificates"}}
+
+<section class="product-grid">
+    {{#foreach posts}}
+    {{> "product-card"}}
+    {{else}}
+    <p class="archive-empty">Nothing available yet — see <a href="{{@site.url}}/learn/">Learn</a> for the membership option.</p>
+    {{/foreach}}
+</section>
+
+{{pagination}}

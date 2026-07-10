@@ -1,0 +1,19 @@
+{{!< default}}
+
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9670; Shop &middot; Merch</p>
+    <h1>Merch</h1>
+    <p>Wear the mark.</p>
+</section>
+
+{{> "shop-category-tabs" current="merch"}}
+
+<section class="product-grid">
+    {{#foreach posts}}
+    {{> "product-card"}}
+    {{else}}
+    <p class="archive-empty">No merch yet.</p>
+    {{/foreach}}
+</section>
+
+{{pagination}}

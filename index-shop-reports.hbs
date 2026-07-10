@@ -1,0 +1,19 @@
+{{!< default}}
+
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9670; Shop &middot; Reports</p>
+    <h1>Reports</h1>
+    <p>Downloadable, sourced breakdowns — the long version of what you'd get on Read.</p>
+</section>
+
+{{> "shop-category-tabs" current="reports"}}
+
+<section class="product-grid">
+    {{#foreach posts}}
+    {{> "product-card"}}
+    {{else}}
+    <p class="archive-empty">No reports yet.</p>
+    {{/foreach}}
+</section>
+
+{{pagination}}

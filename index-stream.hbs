@@ -1,0 +1,28 @@
+{{!< default}}
+
+{{#if @custom.stream_live_banner}}
+<div class="live-banner" role="status">
+    &#128308; Live now &mdash; scroll down to watch
+</div>
+{{/if}}
+
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9670; Stream</p>
+    <h1>Live &amp; Breaking</h1>
+    <p>The livestream when we're on, and the fast, timestamped feed when we're not.</p>
+</section>
+
+<section class="stream-section">
+    {{> "stream-embed"}}
+</section>
+
+<section class="breaking-feed">
+    <h2 class="breaking-feed__heading">Latest updates</h2>
+    {{#foreach posts}}
+    {{> "breaking-row"}}
+    {{else}}
+    <p class="archive-empty">Nothing breaking right now.</p>
+    {{/foreach}}
+</section>
+
+{{pagination}}

@@ -1,0 +1,23 @@
+<div class="stream-embed">
+    {{#if @custom.stream_youtube_channel_id}}
+    <div class="stream-embed__video">
+        <iframe
+            src="https://www.youtube.com/embed/live_stream?channel={{@custom.stream_youtube_channel_id}}"
+            title="{{@site.title}} livestream"
+            loading="lazy"
+            allow="autoplay; encrypted-media"
+            allowfullscreen></iframe>
+    </div>
+    {{else}}
+    <div class="stream-embed__placeholder">
+        <p>Not live right now. Subscribe below and we'll email you when the next stream starts.</p>
+    </div>
+    {{/if}}
+
+    {{#if @custom.radio_stream_url}}
+    <div class="stream-embed__radio">
+        <h3>Listen on radio</h3>
+        <audio controls preload="none" src="{{@custom.radio_stream_url}}"></audio>
+    </div>
+    {{/if}}
+</div>

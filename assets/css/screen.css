@@ -2334,3 +2334,181 @@ html[data-theme="dark"] .theme-toggle__icon::before {
         grid-column: main-start / main-end;
     }
 }
+
+/* Native Ghost Button card — used as the real "Buy now" CTA on Shop
+   product pages (the editor pastes their actual checkout link into a
+   Button card; this just makes it look like a proper CTA). */
+.kg-btn {
+    display: inline-flex !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    background: var(--gold) !important;
+    color: var(--ink) !important;
+    border-radius: 4px !important;
+    padding: 0.9em 1.6em !important;
+    text-decoration: none !important;
+}
+
+/* ===========================================================
+   /shop/ — Gumroad-style storefront
+   =========================================================== */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.75rem;
+    padding-block: 1rem 4rem;
+}
+
+.product-card__image {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--ink);
+    margin-bottom: 0.85rem;
+}
+
+.product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card__avatar {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
+.product-card__title {
+    font-size: 1.05rem;
+    margin: 0 0 0.3rem;
+}
+
+.product-card__title a {
+    text-decoration: none;
+}
+
+.product-card__seller {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--caption);
+    margin: 0 0 0.4rem;
+}
+
+.product-card__price {
+    font-weight: 600;
+    color: var(--gold-dark);
+    margin: 0;
+}
+
+.post__price {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    margin: 0.75rem 0 0;
+}
+
+/* ===========================================================
+   /stream/ — live embed + breaking feed
+   =========================================================== */
+
+.stream-section {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 1rem 2.5rem !important;
+}
+
+.stream-embed {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.stream-embed__video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--ink);
+}
+
+.stream-embed__video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.stream-embed__placeholder {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+.stream-embed__radio audio {
+    width: 100%;
+}
+
+.breaking-feed {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 1rem 4rem !important;
+}
+
+.breaking-feed__heading {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.breaking-row {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1rem;
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.breaking-row:first-child {
+    padding-top: 0;
+}
+
+.breaking-row__time {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--caption);
+    white-space: nowrap;
+}
+
+.breaking-row__title {
+    font-size: 1rem;
+    margin: 0 0 0.3rem;
+}
+
+.breaking-row__title a {
+    text-decoration: none;
+}
+
+.breaking-row__excerpt {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+@media (max-width: 500px) {
+    .breaking-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+}

@@ -1,10 +1,11 @@
 # Krino Media — Ghost theme
 
 The theme that runs krino.media: Watch, Listen, Read (with Essays/Fiction/
-Poems/Book Review sub-sections), Learn (certificate programs), Advertise,
-About Us, Contact, and Jamal Awil's Writer page. Built to match the Krino
-Brand Guidelines v1.0 — Gold/Ink/Bone/Slate/Stone palette, Fraunces + Inter +
-JetBrains Mono.
+Poems/Book Review sub-sections), Learn (certificate programs), Stream (live
++ breaking updates), Shop (with Reports/Merch/Certificates sub-sections),
+Advertise, About Us, Contact, and Jamal Awil's Writer page. Built to match
+the Krino Brand Guidelines v1.0 — Gold/Ink/Bone/Slate/Stone palette,
+Fraunces + Inter + JetBrains Mono.
 
 This is a **normal Ghost theme** — every native Ghost feature (members,
 paid subscriptions, the newsletter, Portal, RSS, SEO tags, etc.) works
@@ -44,10 +45,27 @@ This is set in `routes.yaml` and doesn't need code changes to use:
 | `read` + secondary tag `book-review` | Read → Book Review | `/read/book-review/{slug}/` |
 | `read` (no matching secondary tag) | Read → All only | `/read/{slug}/` |
 | `learn` | Learn (certificate programs) | `/learn/{slug}/` |
+| `shop` + secondary tag `reports` | Shop → Reports | `/shop/reports/{slug}/` |
+| `shop` + secondary tag `merch` | Shop → Merch | `/shop/merch/{slug}/` |
+| `shop` + secondary tag `certificates` | Shop → Certificates | `/shop/certificates/{slug}/` |
+| `shop` (no matching secondary tag) | Shop → All only | `/shop/{slug}/` |
+| `stream` | Stream (live + breaking) | `/stream/{slug}/` |
 | *(anything else)* | Homepage feed | `/{slug}/` |
 
 Also meaningful: tag it `breakdown` to make a post eligible for the
 homepage's "The Breakdown" spotlight card.
+
+**Shop has no cart or checkout** — Ghost doesn't have one natively. Each
+product post's "Buy now" is a real link *you* add: open the product post,
+add a **Button card** (`+` menu → Button) with your actual checkout URL
+(a Stripe Payment Link, Gumroad, Lemon Squeezy — whatever you use), same
+idea as the Contact form's configurable endpoint. The seeded placeholder
+products each have a note in the body reminding you to do this. Price is
+set via the post's **excerpt** field (e.g. "$29 · PDF, 34 pages") — plain
+text only, no HTML entities (a real bug I hit seeding this: `&middot;`
+in an excerpt renders as the literal text "&middot;", not a middle dot,
+because excerpt isn't HTML-parsed the way post body content is — use the
+actual character instead).
 
 **A post can only have one primary tag**, so it lives in exactly one
 section — that's a Ghost/routes.yaml constraint, not something this theme
@@ -70,6 +88,8 @@ Admin → Settings → Design & branding → Theme settings:
 | Advertise email | `mailto:` link on `/advertise/` |
 | Contact form action | POST endpoint for the `/contact/` form (see below) — leave blank and it shows a plain email link instead of a dead form |
 | Contact email | Email shown on `/contact/` when no form endpoint is set |
+| Stream YouTube channel ID | Powers the live embed on `/stream/` (channel ID, not URL) |
+| Stream live banner | Toggle the site-wide "Live now" banner on/off during a stream |
 
 ## Monetization — what's live vs. what needs your action
 

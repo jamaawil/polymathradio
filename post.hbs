@@ -1,13 +1,19 @@
 {{!< default}}
 
 {{#post}}
-<article class="post {{#has tag="watch, listen"}}post--episode{{else}}post--article{{/has}}">
+<article class="post{{#has tag="watch, listen"}} post--episode{{/has}}{{#has tag="shop"}} post--product{{/has}}{{#has tag="stream"}} post--breaking{{/has}}">
     <header class="post__header">
         {{#has tag="watch"}}<p class="post__eyebrow">&#9656; Watch</p>{{/has}}
         {{#has tag="listen"}}<p class="post__eyebrow">&#9686; Listen</p>{{/has}}
         {{#has tag="read"}}<p class="post__eyebrow">Analysis &middot; The Record</p>{{/has}}
+        {{#has tag="shop"}}<p class="post__eyebrow">&#9670; Shop</p>{{/has}}
+        {{#has tag="stream"}}<p class="post__eyebrow">&#9670; Stream &middot; Breaking</p>{{/has}}
 
         <h1 class="post__title">{{title}}</h1>
+
+        {{#has tag="shop"}}
+        {{#if custom_excerpt}}<p class="post__price">{{custom_excerpt}}</p>{{/if}}
+        {{/has}}
 
         {{#has tag="read"}}
         <div class="post__byline">

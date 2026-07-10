@@ -93,6 +93,14 @@
       "contact_email": {
         "type": "text",
         "default": ""
+      },
+      "stream_youtube_channel_id": {
+        "type": "text",
+        "default": ""
+      },
+      "stream_live_banner": {
+        "type": "boolean",
+        "default": false
       }
     }
   }

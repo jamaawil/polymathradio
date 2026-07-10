@@ -44,6 +44,31 @@ collections:
     template: index-learn
     filter: primary_tag:learn
 
+  /shop/reports/:
+    permalink: /shop/reports/{slug}/
+    template: index-shop-reports
+    filter: primary_tag:shop+tag:reports
+
+  /shop/merch/:
+    permalink: /shop/merch/{slug}/
+    template: index-shop-merch
+    filter: primary_tag:shop+tag:merch
+
+  /shop/certificates/:
+    permalink: /shop/certificates/{slug}/
+    template: index-shop-certificates
+    filter: primary_tag:shop+tag:certificates
+
+  /shop/:
+    permalink: /shop/{slug}/
+    template: index-shop
+    filter: primary_tag:shop
+
+  /stream/:
+    permalink: /stream/{slug}/
+    template: index-stream
+    filter: primary_tag:stream
+
   /:
     permalink: /{slug}/
     template: index

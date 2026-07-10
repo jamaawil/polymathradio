@@ -1,0 +1,7 @@
+<article class="breaking-row">
+    <time class="breaking-row__time" datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D [at] h:mma"}}</time>
+    <div class="breaking-row__body">
+        <h3 class="breaking-row__title"><a href="{{url}}">{{title}}</a></h3>
+        {{#if custom_excerpt}}<p class="breaking-row__excerpt">{{custom_excerpt}}</p>{{/if}}
+    </div>
+</article>

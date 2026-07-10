@@ -1,0 +1,21 @@
+<article class="product-card">
+    <a class="product-card__image" href="{{url}}">
+        {{#if feature_image}}
+        <img
+            srcset="{{img_url feature_image size="s"}} 600w,
+                    {{img_url feature_image size="m"}} 1000w"
+            sizes="(max-width: 600px) 100vw, 320px"
+            src="{{img_url feature_image size="m"}}"
+            loading="lazy"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+        {{else}}
+        <span class="product-card__avatar">{{> "krino-mark" size="40px" ring=false mark="var(--gold)"}}</span>
+        {{/if}}
+    </a>
+    <div class="product-card__body">
+        <div class="topic-chips topic-chips--small">{{tags visibility="public" from="2" separator=" &middot; "}}</div>
+        <h3 class="product-card__title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="product-card__seller">Krino Media</p>
+        {{#if custom_excerpt}}<p class="product-card__price">{{custom_excerpt}}</p>{{/if}}
+    </div>
+</article>

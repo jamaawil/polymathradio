@@ -1,0 +1,9 @@
+{{!-- Category nav for the Shop, same pattern as read-category-tabs.hbs —
+      each tab is its own real URL/archive, not a client-side filter.
+      Usage: {{> "shop-category-tabs" current="reports"}} --}}
+<nav class="read-tabs" aria-label="Browse the Shop">
+    <a class="read-tabs__item{{#match current "all"}} is-active{{/match}}" href="{{@site.url}}/shop/">All</a>
+    <a class="read-tabs__item{{#match current "reports"}} is-active{{/match}}" href="{{@site.url}}/shop/reports/">Reports</a>
+    <a class="read-tabs__item{{#match current "merch"}} is-active{{/match}}" href="{{@site.url}}/shop/merch/">Merch</a>
+    <a class="read-tabs__item{{#match current "certificates"}} is-active{{/match}}" href="{{@site.url}}/shop/certificates/">Certificates</a>
+</nav>
