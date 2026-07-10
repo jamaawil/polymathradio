@@ -510,7 +510,7 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 
 .tri-link {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     border-top: 1px solid var(--gold);
     padding-block: 0 !important;
 }
@@ -544,7 +544,23 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     padding-block: 0 0 2rem !important;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+    .tri-link,
+    .tri-link--compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tri-link__item:nth-child(2) {
+        border-right: none;
+    }
+
+    .tri-link__item:nth-child(1),
+    .tri-link__item:nth-child(2) {
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 560px) {
     .tri-link,
     .tri-link--compact {
         grid-template-columns: 1fr;
@@ -1314,4 +1330,459 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     .site-footer__grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ===========================================================
+   Shared: topic chips (used on Watch/Listen/Courses cards)
+   =========================================================== */
+
+.topic-chips {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+}
+
+.topic-chips a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.topic-chips--small {
+    font-size: 0.68rem;
+    margin-bottom: 0.35rem;
+}
+
+.topic-chips--on-dark {
+    color: var(--gold);
+}
+
+/* ===========================================================
+   /watch/ — Vox Explainers-style: lead feature + dense grid
+   =========================================================== */
+
+.explainer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1.75rem 1.5rem;
+    padding-block: 1rem 4rem;
+}
+
+.watch-feature {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+}
+
+.watch-feature__image {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--ink);
+}
+
+.watch-feature__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.watch-feature__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
+.watch-feature__play::before {
+    content: "";
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.94;
+}
+
+.watch-feature__title {
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    line-height: 1.05;
+    margin: 0 0 0.6rem;
+}
+
+.watch-feature__title a {
+    text-decoration: none;
+}
+
+.watch-feature__excerpt {
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+@media (max-width: 780px) {
+    .watch-feature {
+        grid-template-columns: 1fr;
+    }
+}
+
+.watch-card__image {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--ink);
+    margin-bottom: 0.75rem;
+}
+
+.watch-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.watch-card__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
+.watch-card__play::before {
+    content: "";
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.watch-card__image:hover .watch-card__play::before {
+    opacity: 0.94;
+}
+
+.watch-card__title {
+    font-size: 1.1rem;
+    margin: 0 0 0.35rem;
+}
+
+.watch-card__title a {
+    text-decoration: none;
+}
+
+.watch-card__excerpt {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+/* ===========================================================
+   /listen/ — 99% Invisible-style: text-forward vertical list
+   =========================================================== */
+
+.listen-list {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-block: 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.listen-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    padding-block: 1.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.listen-row:first-child {
+    padding-top: 0;
+}
+
+.listen-row__play {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.listen-row__play-icon {
+    width: 0;
+    height: 0;
+    border-left: 0.85rem solid var(--gold);
+    border-top: 0.55rem solid transparent;
+    border-bottom: 0.55rem solid transparent;
+    margin-left: 0.2rem;
+}
+
+.listen-row__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--caption);
+    margin-bottom: 0.4rem;
+}
+
+.listen-row__title {
+    font-size: 1.2rem;
+    margin: 0 0 0.4rem;
+}
+
+.listen-row__title a {
+    text-decoration: none;
+}
+
+.listen-row__excerpt {
+    color: var(--muted);
+    margin: 0 0 0.6rem;
+}
+
+.listen-row__actions {
+    display: flex;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--gold-dark);
+}
+
+.listen-row__actions a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.listen-row__actions a:hover {
+    text-decoration: underline;
+}
+
+/* ===========================================================
+   /read/ — literary essay archive (spare, type-led, whitespace
+   over imagery)
+   =========================================================== */
+
+.essay-archive {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-block: 1rem 4rem;
+}
+
+.essay-feature {
+    padding-bottom: 3rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--gold);
+}
+
+.essay-feature__title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.04;
+    margin: 0.4rem 0 1.1rem;
+}
+
+.essay-feature__title a {
+    text-decoration: none;
+}
+
+.essay-feature__excerpt {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+}
+
+.essay-feature__byline {
+    display: flex;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--caption);
+    margin-bottom: 1.25rem;
+}
+
+.essay-feature__author {
+    color: var(--slate);
+}
+
+.essay-feature__link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    text-decoration: none;
+}
+
+.essay-row {
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.essay-row:last-child {
+    border-bottom: none;
+}
+
+.essay-row__title {
+    font-size: 1.45rem;
+    line-height: 1.15;
+    margin: 0 0 0.6rem;
+}
+
+.essay-row__title a {
+    text-decoration: none;
+}
+
+.essay-row__excerpt {
+    color: var(--muted);
+    margin: 0 0 0.7rem;
+}
+
+.essay-row__byline {
+    display: flex;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--caption);
+}
+
+/* ===========================================================
+   /courses/ — MasterClass-style: cinematic Ink hero + grid
+   =========================================================== */
+
+.courses-hero {
+    background: var(--ink);
+    color: var(--bone);
+    text-align: center;
+    padding-block: clamp(3rem, 7vw, 5.5rem) !important;
+}
+
+.courses-hero__eyebrow {
+    color: var(--gold);
+}
+
+.courses-hero__title {
+    color: var(--bone);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+}
+
+.courses-hero__tagline {
+    font-family: var(--font-sans);
+    color: var(--stone);
+    max-width: 34rem;
+    margin-inline: auto;
+    font-size: 1.05rem;
+}
+
+.courses-hero__note {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    margin-top: 1rem;
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1.75rem;
+    padding-block: 3rem !important;
+}
+
+.course-grid__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+}
+
+.course-card {
+    background: var(--ink);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.course-card__art {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    background: linear-gradient(160deg, #201d15, var(--ink));
+}
+
+.course-card__art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.course-card__avatar {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0.85;
+}
+
+.course-card__badge {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold);
+    padding: 0.3em 0.6em;
+    border-radius: 3px;
+}
+
+.course-card__body {
+    padding: 1.1rem 1.2rem 1.4rem;
+    color: var(--bone);
+}
+
+.course-card__title {
+    font-size: 1.1rem;
+    color: var(--bone);
+    margin: 0 0 0.4rem;
+}
+
+.course-card__title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.course-card__excerpt {
+    color: var(--stone);
+    font-size: 0.85rem;
+    margin: 0 0 0.6rem;
+}
+
+.course-card__instructor {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0;
 }

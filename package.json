@@ -46,6 +46,10 @@
         "type": "text",
         "default": "The week, weighed on the evidence — straight to your inbox."
       },
+      "courses_intro_text": {
+        "type": "text",
+        "default": "Guided skills from the Krino newsroom — how we source, fact-check, and report."
+      },
       "youtube_url": {
         "type": "text",
         "default": ""

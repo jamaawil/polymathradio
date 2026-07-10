@@ -1,0 +1,22 @@
+{{!< default}}
+
+<section class="courses-hero">
+    <p class="courses-hero__eyebrow">&#9670; Learn</p>
+    <h1 class="courses-hero__title">Courses</h1>
+    <p class="courses-hero__tagline">{{@custom.courses_intro_text}}</p>
+    <p class="courses-hero__note">A growing library, taught by the Krino newsroom &mdash; new courses are on the way.</p>
+</section>
+
+<section class="course-grid">
+    {{#foreach posts}}
+    {{> "course-card"}}
+    {{else}}
+    <p class="course-grid__empty">The first course is in production. Join the newsletter below to hear when it lands.</p>
+    {{/foreach}}
+</section>
+
+<section class="newsletter-section">
+    {{> "newsletter-cta" heading="Be first to know" variant="hero"}}
+</section>
+
+{{pagination}}

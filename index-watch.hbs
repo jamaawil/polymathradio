@@ -5,20 +5,24 @@
 <section class="collection-header">
     <p class="collection-header__eyebrow">&#9656; Watch</p>
     <h1>{{#if name}}{{name}}{{else}}Watch{{/if}}</h1>
-    <p>{{#if description}}{{description}}{{else}}Weekly breakdowns &amp; interviews on YouTube.{{/if}}</p>
+    <p>{{#if description}}{{description}}{{else}}Weekly breakdowns &amp; interviews on YouTube — the story, explained.{{/if}}</p>
 </section>
 {{/foreach}}
 {{else}}
 <section class="collection-header">
     <p class="collection-header__eyebrow">&#9656; Watch</p>
     <h1>Watch</h1>
-    <p>Weekly breakdowns &amp; interviews on YouTube.</p>
+    <p>Weekly breakdowns &amp; interviews on YouTube — the story, explained.</p>
 </section>
 {{/get}}
 
-<section class="episode-grid">
+<section class="explainer-grid">
     {{#foreach posts}}
-    {{> "episode-card"}}
+    {{#if @first}}
+    {{> "watch-feature"}}
+    {{else}}
+    {{> "watch-card"}}
+    {{/if}}
     {{/foreach}}
 </section>
 

@@ -1,0 +1,13 @@
+{{!-- Literary feature treatment for the /read/ archive — spare, type-led,
+      author-forward (Roxane Gay-style: whitespace over imagery). --}}
+<article class="essay-feature">
+    <p class="essay-feature__eyebrow">Analysis &middot; The Record</p>
+    <h2 class="essay-feature__title"><a href="{{url}}">{{title}}</a></h2>
+    <p class="essay-feature__excerpt">{{excerpt words="40"}}</p>
+    <div class="essay-feature__byline">
+        {{#if primary_author}}<span class="essay-feature__author">{{primary_author.name}}</span><span>&middot;</span>{{/if}}
+        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
+        {{#if reading_time}}<span>&middot;</span><span>{{reading_time}}</span>{{/if}}
+    </div>
+    <a class="essay-feature__link" href="{{url}}">Read the essay &rarr;</a>
+</article>

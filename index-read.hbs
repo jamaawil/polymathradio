@@ -1,14 +1,18 @@
 {{!< default}}
 
-<section class="collection-header">
+<section class="collection-header collection-header--read">
     <p class="collection-header__eyebrow">&#9642; Read</p>
     <h1>The Record</h1>
     <p>Annotated analysis &amp; sources — the honest answer, printed either way.</p>
 </section>
 
-<section class="article-grid">
+<section class="essay-archive">
     {{#foreach posts}}
-    {{> "article-card"}}
+    {{#if @first}}
+    {{> "essay-feature"}}
+    {{else}}
+    {{> "essay-row"}}
+    {{/if}}
     {{/foreach}}
 </section>
 

@@ -1,0 +1,20 @@
+{{!-- Vertical episode row for the /listen/ archive — 99% Invisible-style:
+      text-forward list, minimal imagery, metadata-led. Expects post context. --}}
+<article class="listen-row">
+    <a class="listen-row__play" href="{{url}}" aria-label="Play {{title}}">
+        <span class="listen-row__play-icon" aria-hidden="true"></span>
+    </a>
+    <div class="listen-row__body">
+        <div class="listen-row__meta">
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MM.DD.YY"}}</time>
+            <span class="topic-chips topic-chips--small">{{tags visibility="public" from="2" separator=" &middot; "}}</span>
+        </div>
+        <h3 class="listen-row__title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="listen-row__excerpt">{{excerpt words="30"}}</p>
+        <div class="listen-row__actions">
+            <a href="{{url}}">Show notes</a>
+            <span>&middot;</span>
+            <a href="{{url}}">Transcript</a>
+        </div>
+    </div>
+</article>

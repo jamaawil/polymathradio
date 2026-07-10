@@ -1,0 +1,9 @@
+<article class="essay-row">
+    <h3 class="essay-row__title"><a href="{{url}}">{{title}}</a></h3>
+    <p class="essay-row__excerpt">{{excerpt words="26"}}</p>
+    <div class="essay-row__byline">
+        {{#if primary_author}}<span>{{primary_author.name}}</span><span>&middot;</span>{{/if}}
+        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D, YYYY"}}</time>
+        {{#if reading_time}}<span>&middot;</span><span>{{reading_time}}</span>{{/if}}
+    </div>
+</article>
