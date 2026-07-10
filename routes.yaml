@@ -17,6 +17,11 @@ collections:
   /read/:
     permalink: /read/{slug}/
     template: index-read
+    filter: primary_tag:read
+
+  /:
+    permalink: /{slug}/
+    template: index
 
 taxonomies:
   tag: /tag/{slug}/
