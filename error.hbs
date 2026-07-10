@@ -1,0 +1,35 @@
+{{!--
+    Deliberately standalone (does not extend default.hbs) — a 500 error can
+    happen when the app itself is struggling, so this page avoids partials,
+    the members/newsletter form, and any other moving part that could fail
+    along with it. Keep this template as lightweight as possible.
+--}}
+<!doctype html>
+<html lang="{{@site.locale}}">
+<head>
+    <meta charset="utf-8">
+    <title>{{meta_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{asset "css/screen.css"}}">
+</head>
+<body>
+    <section class="error-page">
+        <a class="site-header__logo" href="{{@site.url}}">
+            <span class="site-header__mark">
+                <svg viewBox="0 0 200 200" width="36px" height="36px" style="display:block" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Krino">
+                    <circle cx="100" cy="100" r="94" stroke="#C8971F" stroke-width="3" fill="none"></circle>
+                    <rect x="58" y="52" width="11" height="96" rx="1" fill="#16140F"></rect>
+                    <path d="M69 100 L142 58" stroke="#16140F" stroke-width="11" stroke-linecap="round"></path>
+                    <path d="M69 100 L142 142" stroke="#16140F" stroke-width="11" stroke-linecap="round"></path>
+                    <path d="M52 116 L69 100 L86 116 Z" fill="#16140F" opacity="0.92"></path>
+                    <circle cx="69" cy="100" r="6.5" fill="#C8971F"></circle>
+                </svg>
+            </span>
+            <span class="site-header__wordmark">KRINO <span class="site-header__wordmark-sub">MEDIA</span></span>
+        </a>
+        <h1>{{statusCode}}</h1>
+        <p>{{message}}</p>
+        <a class="btn btn--gold" href="{{@site.url}}">Back to home</a>
+    </section>
+</body>
+</html>

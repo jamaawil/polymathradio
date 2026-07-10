@@ -1,0 +1,87 @@
+{
+  "name": "krino",
+  "description": "Krino Media — independent U.S. political media: watch, listen, read. Built to match the Krino Brand Guidelines v1.0.",
+  "version": "1.0.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Krino Media",
+    "email": "hello@krino.media"
+  },
+  "gpm": {
+    "type": "theme"
+  },
+  "keywords": [
+    "ghost-theme",
+    "news",
+    "politics",
+    "podcast"
+  ],
+  "config": {
+    "posts_per_page": 10,
+    "image_sizes": {
+      "xs": { "width": 300 },
+      "s": { "width": 600 },
+      "m": { "width": 1000 },
+      "l": { "width": 1600 },
+      "xl": { "width": 2000 }
+    },
+    "card_assets": true,
+    "custom": {
+      "gold": {
+        "type": "color",
+        "default": "#C8971F"
+      },
+      "ink": {
+        "type": "color",
+        "default": "#16140F"
+      },
+      "hero_tagline": {
+        "type": "text",
+        "default": "Rigorously critical of every side — left, right, and center. We weigh the claims, name the evidence, and refuse to flatter a tribe."
+      },
+      "newsletter_intro_text": {
+        "type": "text",
+        "default": "The week, weighed on the evidence — straight to your inbox."
+      },
+      "youtube_url": {
+        "type": "text",
+        "default": ""
+      },
+      "podcast_apple_url": {
+        "type": "text",
+        "default": ""
+      },
+      "podcast_spotify_url": {
+        "type": "text",
+        "default": ""
+      },
+      "podcast_overcast_url": {
+        "type": "text",
+        "default": ""
+      },
+      "radio_stream_url": {
+        "type": "text",
+        "default": ""
+      },
+      "twitter_url": {
+        "type": "text",
+        "default": ""
+      },
+      "instagram_url": {
+        "type": "text",
+        "default": ""
+      },
+      "linkedin_url": {
+        "type": "text",
+        "default": ""
+      },
+      "advertise_email": {
+        "type": "text",
+        "default": ""
+      }
+    }
+  }
+}

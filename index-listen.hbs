@@ -1,0 +1,29 @@
+{{!< default}}
+
+{{#get "tags" filter="slug:listen" limit="1" as |listenTag|}}
+{{#foreach listenTag}}
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9686; Listen</p>
+    <h1>{{#if name}}{{name}}{{else}}Listen{{/if}}</h1>
+    <p>{{#if description}}{{description}}{{else}}Radio &amp; podcast, on-air daily.{{/if}}</p>
+</section>
+{{/foreach}}
+{{else}}
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9686; Listen</p>
+    <h1>Listen</h1>
+    <p>Radio &amp; podcast, on-air daily.</p>
+</section>
+{{/get}}
+
+<div class="collection-header__listen">
+    {{> "social-links"}}
+</div>
+
+<section class="episode-grid">
+    {{#foreach posts}}
+    {{> "episode-card"}}
+    {{/foreach}}
+</section>
+
+{{pagination}}

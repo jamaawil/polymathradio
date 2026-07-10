@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="{{@site.locale}}" data-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <title>{{meta_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{@custom.ink}}">
+
+    {{!-- Ghost injects meta tags, canonical URL, OG/Twitter cards, JSON-LD, RSS link, etc. --}}
+    {{ghost_head}}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset "css/screen.css"}}">
+    <style>:root{--gold: {{@custom.gold}}; --ink: {{@custom.ink}};}</style>
+    <script>
+        (function () {
+            var stored = localStorage.getItem("krino-theme");
+            var theme = stored || "auto";
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+</head>
+<body class="{{body_class}}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    {{> "site-header"}}
+
+    <main id="main-content">
+        {{{body}}}
+    </main>
+
+    {{> "site-footer"}}
+
+    <script src="{{asset "js/main.js"}}" defer></script>
+    {{ghost_foot}}
+</body>
+</html>

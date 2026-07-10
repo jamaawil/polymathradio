@@ -1,0 +1,10 @@
+<svg viewBox="0 0 200 200" width="200" height="200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Krino">
+    <rect width="200" height="200" fill="#16140F"></rect>
+    <path d="M81.1 43.3 A58 58 0 0 1 126.4 108.1" stroke="#C8971F" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.9"></path>
+    <path d="M84.4 27.6 A74 74 0 0 1 142.3 110.3" stroke="#C8971F" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5"></path>
+    <rect x="58" y="52" width="12" height="96" rx="1" fill="#F4EFE3"></rect>
+    <path d="M69 100 L142 58" stroke="#F4EFE3" stroke-width="12" stroke-linecap="round"></path>
+    <path d="M69 100 L142 142" stroke="#F4EFE3" stroke-width="12" stroke-linecap="round"></path>
+    <path d="M52 116 L69 100 L86 116 Z" fill="#F4EFE3" opacity="0.92"></path>
+    <circle cx="69" cy="100" r="7" fill="#C8971F"></circle>
+</svg>

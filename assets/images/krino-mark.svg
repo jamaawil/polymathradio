@@ -1,0 +1,11 @@
+<svg viewBox="0 0 200 200" width="200" height="200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Krino monogram">
+    <circle cx="100" cy="100" r="94" stroke="#C8971F" stroke-width="3" fill="none"></circle>
+    <path d="M81.1 43.3 A58 58 0 0 1 126.4 108.1" stroke="#C8971F" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9"></path>
+    <path d="M84.4 27.6 A74 74 0 0 1 142.3 110.3" stroke="#C8971F" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.55"></path>
+    <path d="M87.7 12.0 A90 90 0 0 1 158.1 112.5" stroke="#C8971F" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.28"></path>
+    <rect x="58" y="52" width="11" height="96" rx="1" fill="#16140F"></rect>
+    <path d="M69 100 L142 58" stroke="#16140F" stroke-width="11" stroke-linecap="round"></path>
+    <path d="M69 100 L142 142" stroke="#16140F" stroke-width="11" stroke-linecap="round"></path>
+    <path d="M52 116 L69 100 L86 116 Z" fill="#16140F" opacity="0.92"></path>
+    <circle cx="69" cy="100" r="6.5" fill="#C8971F"></circle>
+</svg>

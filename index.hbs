@@ -1,0 +1,69 @@
+{{!< default}}
+
+<section class="hero">
+    <div class="hero__grid">
+        <div class="hero__copy">
+            <p class="hero__eyebrow">Independent U.S. political media</p>
+            <h1 class="hero__title">Sift the noise.</h1>
+            <p class="hero__tagline">{{@custom.hero_tagline}}</p>
+            <div class="hero__actions">
+                <a class="btn btn--ink" href="{{@site.url}}/watch/">&#9656; Watch the latest</a>
+                <a class="btn btn--outline" href="{{@site.url}}/about/">How we work</a>
+            </div>
+        </div>
+
+        {{#get "posts" filter="tag:[watch,listen]" limit="1" as |featured|}}
+        {{#foreach featured}}
+        {{> "episode-spotlight"}}
+        {{/foreach}}
+        {{/get}}
+    </div>
+</section>
+
+<section class="tri-link">
+    <a class="tri-link__item" href="{{@site.url}}/watch/">
+        <p class="tri-link__eyebrow">&#9656; Watch</p>
+        <h3>YouTube</h3>
+        <p>Weekly breakdowns &amp; interviews</p>
+    </a>
+    <a class="tri-link__item" href="{{@site.url}}/listen/">
+        <p class="tri-link__eyebrow">&#9686; Listen</p>
+        <h3>Radio &amp; Podcast</h3>
+        <p>On-air daily &middot; everywhere you listen</p>
+    </a>
+    <a class="tri-link__item" href="{{@site.url}}/read/">
+        <p class="tri-link__eyebrow">&#9642; Read</p>
+        <h3>The Record</h3>
+        <p>Annotated analysis &amp; sources</p>
+    </a>
+</section>
+
+{{#get "posts" filter="tag:breakdown" limit="1" as |breakdown|}}
+{{#if breakdown}}
+<section class="breakdown-section">
+    {{#foreach breakdown}}
+    {{> "breakdown-card"}}
+    {{/foreach}}
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:read" limit="3" as |articles|}}
+{{#if articles}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Latest from The Record</h2>
+        <a href="{{@site.url}}/read/">All analysis &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach articles}}
+        {{> "article-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+<section id="newsletter" class="newsletter-section">
+    {{> "newsletter-cta" heading="The week, weighed" variant="hero"}}
+</section>

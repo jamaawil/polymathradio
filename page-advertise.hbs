@@ -1,0 +1,60 @@
+{{!< default}}
+
+{{#post}}
+<article class="page page--advertise">
+    <header class="page__header">
+        <p class="page__eyebrow">Media Kit &middot; {{date format="YYYY"}}</p>
+        <h1 class="page__title">{{#if title}}{{title}}{{else}}Advertise with Krino{{/if}}</h1>
+        <p class="page__lede">Independent U.S. political media — rigorously critical of every side, in service of a politics where people flourish.</p>
+    </header>
+
+    <section class="stat-row">
+        <div class="stat-tile"><span class="stat-tile__value">2.4M</span><span class="stat-tile__label">Monthly reach</span></div>
+        <div class="stat-tile"><span class="stat-tile__value">310K</span><span class="stat-tile__label">Subscribers</span></div>
+        <div class="stat-tile"><span class="stat-tile__value">68K</span><span class="stat-tile__label">Newsletter</span></div>
+        <div class="stat-tile"><span class="stat-tile__value">41%</span><span class="stat-tile__label">Age 25&ndash;44</span></div>
+    </section>
+
+    <section class="tri-link tri-link--compact">
+        <div class="tri-link__item">
+            <p class="tri-link__eyebrow">&#9656; Watch</p>
+            <h3>YouTube</h3>
+            <p>Weekly breakdowns</p>
+        </div>
+        <div class="tri-link__item">
+            <p class="tri-link__eyebrow">&#9686; Listen</p>
+            <h3>Radio &amp; Podcast</h3>
+            <p>On-air daily</p>
+        </div>
+        <div class="tri-link__item">
+            <p class="tri-link__eyebrow">&#9642; Read</p>
+            <h3>The Record</h3>
+            <p>Annotated analysis</p>
+        </div>
+    </section>
+
+    <section class="rate-card">
+        <h2>Rate card</h2>
+        <table class="rate-card__table">
+            <tbody>
+                <tr><td>Podcast pre-roll &middot; :30</td><td>$1,800</td></tr>
+                <tr><td>Mid-roll host read &middot; :60</td><td>$3,200</td></tr>
+                <tr><td>Newsletter feature</td><td>$1,200</td></tr>
+                <tr><td>Cross-channel bundle</td><td>from $5,500</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    {{#if content}}
+    <div class="page__content">
+        {{content}}
+    </div>
+    {{/if}}
+
+    {{#if @custom.advertise_email}}
+    <section class="advertise-cta">
+        <a class="btn btn--gold btn--large" href="mailto:{{@custom.advertise_email}}">Become a partner</a>
+    </section>
+    {{/if}}
+</article>
+{{/post}}

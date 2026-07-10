@@ -1,0 +1,16 @@
+{{!< default}}
+
+{{#tag}}
+<section class="collection-header">
+    <h1>{{name}}</h1>
+    {{#if description}}<p>{{description}}</p>{{/if}}
+</section>
+{{/tag}}
+
+<section class="article-grid">
+    {{#foreach posts}}
+    {{> "article-card"}}
+    {{/foreach}}
+</section>
+
+{{pagination}}

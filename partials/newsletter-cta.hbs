@@ -1,0 +1,22 @@
+{{!-- Reusable email-capture block. Pass `heading` and `variant`:
+      {{> "newsletter-cta" heading="..." variant="compact"}} --}}
+<div class="newsletter-cta newsletter-cta--{{#if variant}}{{variant}}{{else}}default{{/if}}">
+    {{#if @member}}
+    <p class="newsletter-cta__thanks">You're on the list — thanks for reading. The next breakdown lands in your inbox.</p>
+    {{else}}
+    <div class="newsletter-cta__copy">
+        <h2>{{#if heading}}{{heading}}{{else}}The week, weighed{{/if}}</h2>
+        <p>{{#if @custom.newsletter_intro_text}}{{@custom.newsletter_intro_text}}{{/if}}</p>
+    </div>
+    <form data-members-form="signup" class="newsletter-cta__form">
+        <label class="visually-hidden" for="newsletter-email-{{variant}}">Email address</label>
+        <input id="newsletter-email-{{variant}}" data-members-email type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+        <button type="submit" class="btn btn--gold">
+            <span data-members-label="true">Subscribe</span>
+        </button>
+        <div class="newsletter-cta__message message-success" aria-live="polite" data-members-success>Check your inbox to confirm.</div>
+        <div class="newsletter-cta__message message-error" aria-live="polite" data-members-error></div>
+    </form>
+    <p class="newsletter-cta__fineprint">No spam. Unsubscribe anytime.</p>
+    {{/if}}
+</div>

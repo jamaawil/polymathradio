@@ -1,0 +1,29 @@
+{{!-- Only renders links that have been filled in via Settings -> Design &
+      branding -> Theme settings, so this never shows dead links. --}}
+<ul class="platform-links">
+    {{#if @custom.youtube_url}}
+    <li><a href="{{@custom.youtube_url}}" rel="noopener" target="_blank">YouTube</a></li>
+    {{/if}}
+    {{#if @custom.podcast_apple_url}}
+    <li><a href="{{@custom.podcast_apple_url}}" rel="noopener" target="_blank">Apple Podcasts</a></li>
+    {{/if}}
+    {{#if @custom.podcast_spotify_url}}
+    <li><a href="{{@custom.podcast_spotify_url}}" rel="noopener" target="_blank">Spotify</a></li>
+    {{/if}}
+    {{#if @custom.podcast_overcast_url}}
+    <li><a href="{{@custom.podcast_overcast_url}}" rel="noopener" target="_blank">Overcast</a></li>
+    {{/if}}
+    {{#if @custom.radio_stream_url}}
+    <li><a href="{{@custom.radio_stream_url}}" rel="noopener" target="_blank">Radio stream</a></li>
+    {{/if}}
+    {{#if @custom.twitter_url}}
+    <li><a href="{{@custom.twitter_url}}" rel="noopener" target="_blank">X</a></li>
+    {{/if}}
+    {{#if @custom.instagram_url}}
+    <li><a href="{{@custom.instagram_url}}" rel="noopener" target="_blank">Instagram</a></li>
+    {{/if}}
+    {{#if @custom.linkedin_url}}
+    <li><a href="{{@custom.linkedin_url}}" rel="noopener" target="_blank">LinkedIn</a></li>
+    {{/if}}
+    <li><a href="{{@site.url}}/rss/">RSS</a></li>
+</ul>

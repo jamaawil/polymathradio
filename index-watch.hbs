@@ -1,0 +1,25 @@
+{{!< default}}
+
+{{#get "tags" filter="slug:watch" limit="1" as |watchTag|}}
+{{#foreach watchTag}}
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9656; Watch</p>
+    <h1>{{#if name}}{{name}}{{else}}Watch{{/if}}</h1>
+    <p>{{#if description}}{{description}}{{else}}Weekly breakdowns &amp; interviews on YouTube.{{/if}}</p>
+</section>
+{{/foreach}}
+{{else}}
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9656; Watch</p>
+    <h1>Watch</h1>
+    <p>Weekly breakdowns &amp; interviews on YouTube.</p>
+</section>
+{{/get}}
+
+<section class="episode-grid">
+    {{#foreach posts}}
+    {{> "episode-card"}}
+    {{/foreach}}
+</section>
+
+{{pagination}}

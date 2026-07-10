@@ -1,0 +1,25 @@
+{{!-- Krino monogram: a balance beam (K) fused with broadcast arcs, pivoting
+      on a fulcrum. Faithful static port of the brand kit's parametric
+      KrinoMark component (accent ring + arcs, ink beam + fulcrum).
+      Usage: {{> "krino-mark" size="36px" accent="var(--gold)" mark="var(--ink)" ring=true}} --}}
+<svg
+    viewBox="0 0 200 200"
+    width="{{#if size}}{{size}}{{else}}100%{{/if}}"
+    height="{{#if size}}{{size}}{{else}}100%{{/if}}"
+    style="display:block;overflow:visible"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Krino monogram">
+    {{#if ring}}
+    <circle cx="100" cy="100" r="94" stroke="{{#if accent}}{{accent}}{{else}}var(--gold){{/if}}" stroke-width="3" fill="none"></circle>
+    {{/if}}
+    <path d="M81.1 43.3 A58 58 0 0 1 126.4 108.1" stroke="{{#if accent}}{{accent}}{{else}}var(--gold){{/if}}" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9"></path>
+    <path d="M84.4 27.6 A74 74 0 0 1 142.3 110.3" stroke="{{#if accent}}{{accent}}{{else}}var(--gold){{/if}}" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.55"></path>
+    <path d="M87.7 12.0 A90 90 0 0 1 158.1 112.5" stroke="{{#if accent}}{{accent}}{{else}}var(--gold){{/if}}" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.28"></path>
+    <rect x="58" y="52" width="11" height="96" rx="1" fill="{{#if mark}}{{mark}}{{else}}var(--ink){{/if}}"></rect>
+    <path d="M69 100 L142 58" stroke="{{#if mark}}{{mark}}{{else}}var(--ink){{/if}}" stroke-width="11" stroke-linecap="round"></path>
+    <path d="M69 100 L142 142" stroke="{{#if mark}}{{mark}}{{else}}var(--ink){{/if}}" stroke-width="11" stroke-linecap="round"></path>
+    <path d="M52 116 L69 100 L86 116 Z" fill="{{#if mark}}{{mark}}{{else}}var(--ink){{/if}}" opacity="0.92"></path>
+    <circle cx="69" cy="100" r="6.5" fill="{{#if accent}}{{accent}}{{else}}var(--gold){{/if}}"></circle>
+</svg>

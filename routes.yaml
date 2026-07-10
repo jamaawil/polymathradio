@@ -1,0 +1,23 @@
+routes:
+  /advertise/:
+    template: page-advertise
+    data: page.advertise
+
+collections:
+  /watch/:
+    permalink: /watch/{slug}/
+    template: index-watch
+    filter: primary_tag:watch
+
+  /listen/:
+    permalink: /listen/{slug}/
+    template: index-listen
+    filter: primary_tag:listen
+
+  /read/:
+    permalink: /read/{slug}/
+    template: index-read
+
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/

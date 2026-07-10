@@ -1,0 +1,37 @@
+<header class="site-header">
+    <div class="site-header__bar">
+        <a class="site-header__logo" href="{{@site.url}}">
+            <span class="site-header__mark">{{> "krino-mark" size="36px" ring=true}}</span>
+            <span class="site-header__wordmark">KRINO <span class="site-header__wordmark-sub">MEDIA</span></span>
+        </a>
+
+        <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+            <span class="visually-hidden">Menu</span>
+            <span class="nav-toggle__bar"></span>
+        </button>
+
+        <div class="site-header__nav" id="site-nav">
+            <nav class="nav-primary" aria-label="Primary">
+                <ul>
+                    <li><a href="{{@site.url}}/watch/">Watch</a></li>
+                    <li><a href="{{@site.url}}/listen/">Listen</a></li>
+                    <li><a href="{{@site.url}}/read/">Read</a></li>
+                    {{#foreach navigation}}
+                    <li><a href="{{url absolute="false"}}">{{label}}</a></li>
+                    {{/foreach}}
+                </ul>
+            </nav>
+
+            <div class="site-header__actions">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+                    <span class="theme-toggle__icon" aria-hidden="true"></span>
+                </button>
+                {{#unless @member}}
+                <a href="#" data-portal="signup" class="btn btn--gold btn--small">Subscribe</a>
+                {{else}}
+                <a href="#" data-portal="account" class="btn btn--ghost btn--small">Account</a>
+                {{/unless}}
+            </div>
+        </div>
+    </div>
+</header>
