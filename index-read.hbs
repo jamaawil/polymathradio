@@ -1,19 +1,28 @@
 {{!< default}}
 
+{{!-- Collections claim posts exclusively for their native `posts` loop (the
+      Essays/Fiction/Poems/Book Review collections below claim every tagged
+      post), so "All" is fetched directly by tag instead of relying on this
+      collection's own (permanently empty) posts array. --}}
+
 <section class="collection-header collection-header--read">
     <p class="collection-header__eyebrow">&#9642; Read</p>
     <h1>The Record</h1>
     <p>Annotated analysis &amp; sources — the honest answer, printed either way.</p>
 </section>
 
+{{> "read-category-tabs" current="all"}}
+
+{{#get "posts" filter="primary_tag:read" limit="20" as |allReadPosts|}}
 <section class="essay-archive">
-    {{#foreach posts}}
+    {{#foreach allReadPosts}}
     {{#if @first}}
     {{> "essay-feature"}}
     {{else}}
     {{> "essay-row"}}
     {{/if}}
+    {{else}}
+    <p class="course-grid__empty">No pieces published yet.</p>
     {{/foreach}}
 </section>
-
-{{pagination}}
+{{/get}}

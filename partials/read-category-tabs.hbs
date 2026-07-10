@@ -1,0 +1,11 @@
+{{!-- n+1-style category nav for The Record — clicking a tab navigates to
+      that category's own filtered archive (each has its own URL, same
+      mechanism the reference site itself uses). Pass current="essays" etc.
+      Usage: {{> "read-category-tabs" current="essays"}} --}}
+<nav class="read-tabs" aria-label="Browse The Record">
+    <a class="read-tabs__item{{#match current "all"}} is-active{{/match}}" href="{{@site.url}}/read/">All</a>
+    <a class="read-tabs__item{{#match current "essays"}} is-active{{/match}}" href="{{@site.url}}/read/essays/">Essays</a>
+    <a class="read-tabs__item{{#match current "fiction"}} is-active{{/match}}" href="{{@site.url}}/read/fiction/">Fiction</a>
+    <a class="read-tabs__item{{#match current "poems"}} is-active{{/match}}" href="{{@site.url}}/read/poems/">Poems</a>
+    <a class="read-tabs__item{{#match current "book-review"}} is-active{{/match}}" href="{{@site.url}}/read/book-review/">Book Review</a>
+</nav>

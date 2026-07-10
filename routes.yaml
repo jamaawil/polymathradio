@@ -14,6 +14,26 @@ collections:
     template: index-listen
     filter: primary_tag:listen
 
+  /read/essays/:
+    permalink: /read/essays/{slug}/
+    template: index-read-essays
+    filter: primary_tag:read+tag:essays
+
+  /read/fiction/:
+    permalink: /read/fiction/{slug}/
+    template: index-read-fiction
+    filter: primary_tag:read+tag:fiction
+
+  /read/poems/:
+    permalink: /read/poems/{slug}/
+    template: index-read-poems
+    filter: primary_tag:read+tag:poems
+
+  /read/book-review/:
+    permalink: /read/book-review/{slug}/
+    template: index-read-book-review
+    filter: primary_tag:read+tag:book-review
+
   /read/:
     permalink: /read/{slug}/
     template: index-read

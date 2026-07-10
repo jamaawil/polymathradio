@@ -1652,6 +1652,45 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 }
 
 /* ===========================================================
+   /read/ — n+1-style category tabs (Essays / Fiction / Poems /
+   Book Review), each its own URL — tabs just navigate
+   =========================================================== */
+
+.read-tabs {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.read-tabs__item {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--caption);
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1rem;
+}
+
+.read-tabs__item:hover {
+    color: var(--fg);
+}
+
+.read-tabs__item.is-active {
+    color: var(--gold-dark);
+    border-bottom-color: var(--gold);
+}
+
+/* ===========================================================
    /read/ — literary essay archive (spare, type-led, whitespace
    over imagery)
    =========================================================== */

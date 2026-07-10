@@ -1,0 +1,23 @@
+{{!< default}}
+
+<section class="collection-header collection-header--read">
+    <p class="collection-header__eyebrow">&#9642; Read &middot; Essays</p>
+    <h1>Essays</h1>
+    <p>Arguments, criticism, and analysis from the Krino newsroom.</p>
+</section>
+
+{{> "read-category-tabs" current="essays"}}
+
+<section class="essay-archive">
+    {{#foreach posts}}
+    {{#if @first}}
+    {{> "essay-feature"}}
+    {{else}}
+    {{> "essay-row"}}
+    {{/if}}
+    {{else}}
+    <p class="course-grid__empty">No essays published yet.</p>
+    {{/foreach}}
+</section>
+
+{{pagination}}
