@@ -39,10 +39,10 @@ collections:
     template: index-read
     filter: primary_tag:read
 
-  /courses/:
-    permalink: /courses/{slug}/
-    template: index-courses
-    filter: primary_tag:courses
+  /learn/:
+    permalink: /learn/{slug}/
+    template: index-learn
+    filter: primary_tag:learn
 
   /:
     permalink: /{slug}/

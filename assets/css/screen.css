@@ -1354,7 +1354,7 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 }
 
 /* ===========================================================
-   Shared: topic chips (used on Watch/Listen/Courses cards)
+   Shared: topic chips (used on Watch/Listen/Learn cards)
    =========================================================== */
 
 .topic-chips {
@@ -1785,26 +1785,26 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 }
 
 /* ===========================================================
-   /courses/ — MasterClass-style: cinematic Ink hero + grid
+   /learn/ — MasterClass-style: cinematic Ink hero + grid
    =========================================================== */
 
-.courses-hero {
+.learn-hero {
     background: var(--ink);
     color: var(--bone);
     text-align: center;
     padding-block: clamp(3rem, 7vw, 5.5rem) !important;
 }
 
-.courses-hero__eyebrow {
+.learn-hero__eyebrow {
     color: var(--gold);
 }
 
-.courses-hero__title {
+.learn-hero__title {
     color: var(--bone);
     font-size: clamp(2.4rem, 5vw, 3.6rem);
 }
 
-.courses-hero__tagline {
+.learn-hero__tagline {
     font-family: var(--font-sans);
     color: var(--stone);
     max-width: 34rem;
@@ -1812,7 +1812,7 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     font-size: 1.05rem;
 }
 
-.courses-hero__note {
+.learn-hero__note {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.06em;
@@ -1820,39 +1820,39 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     margin-top: 1rem;
 }
 
-.course-grid {
+.learn-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     gap: 1.75rem;
     padding-block: 3rem !important;
 }
 
-.course-grid__empty {
+.archive-empty {
     grid-column: 1 / -1;
     text-align: center;
     color: var(--muted);
 }
 
-.course-card {
+.learn-card {
     background: var(--ink);
     border-radius: var(--radius);
     overflow: hidden;
 }
 
-.course-card__art {
+.learn-card__art {
     position: relative;
     display: block;
     aspect-ratio: 4 / 5;
     background: linear-gradient(160deg, #201d15, var(--ink));
 }
 
-.course-card__art img {
+.learn-card__art img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.course-card__avatar {
+.learn-card__avatar {
     position: absolute;
     inset: 0;
     display: grid;
@@ -1860,7 +1860,7 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     opacity: 0.85;
 }
 
-.course-card__badge {
+.learn-card__badge {
     position: absolute;
     top: 0.85rem;
     right: 0.85rem;
@@ -1875,29 +1875,29 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     border-radius: 3px;
 }
 
-.course-card__body {
+.learn-card__body {
     padding: 1.1rem 1.2rem 1.4rem;
     color: var(--bone);
 }
 
-.course-card__title {
+.learn-card__title {
     font-size: 1.1rem;
     color: var(--bone);
     margin: 0 0 0.4rem;
 }
 
-.course-card__title a {
+.learn-card__title a {
     text-decoration: none;
     color: inherit;
 }
 
-.course-card__excerpt {
+.learn-card__excerpt {
     color: var(--stone);
     font-size: 0.85rem;
     margin: 0 0 0.6rem;
 }
 
-.course-card__footer {
+.learn-card__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1908,8 +1908,8 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     border-top: 1px solid #2e2b22;
 }
 
-.course-card__certificate,
-.course-card__instructor {
+.learn-card__certificate,
+.learn-card__instructor {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     letter-spacing: 0.06em;
@@ -1918,13 +1918,13 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     margin: 0;
 }
 
-.course-card__instructor {
+.learn-card__instructor {
     color: var(--stone);
 }
 
 /* ---------- "what's included" value-prop row ---------- */
 
-.course-included {
+.learn-included {
     max-width: var(--content-width);
     margin-inline: auto;
     padding-inline: 1.5rem;
@@ -1935,23 +1935,23 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     text-align: center;
 }
 
-.course-included__icon {
+.learn-included__icon {
     color: var(--gold);
     font-size: 1.3rem;
     margin: 0 0 0.6rem;
 }
 
-.course-included__item h3 {
+.learn-included__item h3 {
     font-size: 1.05rem;
     margin: 0 0 0.4rem;
 }
 
-.course-included__item p:last-child {
+.learn-included__item p:last-child {
     color: var(--muted);
     font-size: 0.9rem;
     margin: 0;
 }
 
-.collection-header--courses {
+.collection-header--learn {
     padding-block: 3rem 0.5rem !important;
 }

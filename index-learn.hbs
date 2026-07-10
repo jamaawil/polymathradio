@@ -1,0 +1,45 @@
+{{!< default}}
+
+<section class="learn-hero">
+    <p class="learn-hero__eyebrow">&#9670; Learn</p>
+    <h1 class="learn-hero__title">Get certified in the craft.</h1>
+    <p class="learn-hero__tagline">{{@custom.learn_intro_text}}</p>
+    <p class="learn-hero__note">A growing library, taught by the Krino newsroom &mdash; new certificate programs are on the way.</p>
+</section>
+
+<section class="learn-included">
+    <div class="learn-included__item">
+        <p class="learn-included__icon" aria-hidden="true">&#9670;</p>
+        <h3>Taught by the newsroom</h3>
+        <p>Every program is led by working Krino journalists and editors, teaching the methods they use daily.</p>
+    </div>
+    <div class="learn-included__item">
+        <p class="learn-included__icon" aria-hidden="true">&#127894;</p>
+        <h3>Certificate of completion</h3>
+        <p>Finish a program and earn a Krino certificate — proof you can back a claim with evidence.</p>
+    </div>
+    <div class="learn-included__item">
+        <p class="learn-included__icon" aria-hidden="true">&#9737;</p>
+        <h3>Community access</h3>
+        <p>Join a standing room of fellow learners working through the same material, not a one-way video feed.</p>
+    </div>
+</section>
+
+<section class="collection-header collection-header--learn">
+    <p class="collection-header__eyebrow">&#9670; Certificate programs</p>
+    <h2>Programs</h2>
+</section>
+
+<section class="learn-grid">
+    {{#foreach posts}}
+    {{> "learn-card"}}
+    {{else}}
+    <p class="learn-grid__empty">The first program is in production. Join the newsletter below to hear when it lands.</p>
+    {{/foreach}}
+</section>
+
+<section class="newsletter-section">
+    {{> "newsletter-cta" heading="Be first to know" variant="hero"}}
+</section>
+
+{{pagination}}
