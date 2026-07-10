@@ -1277,7 +1277,7 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     margin: 0 auto;
     padding-inline: 1.5rem;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
     gap: 2rem;
     font-size: 0.9rem;
 }
@@ -1347,9 +1347,23 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     letter-spacing: 0.04em;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+    .site-footer__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .site-footer__about {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 560px) {
     .site-footer__grid {
         grid-template-columns: 1fr;
+    }
+
+    .site-footer__about {
+        grid-column: auto;
     }
 }
 
@@ -1954,4 +1968,294 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 
 .collection-header--learn {
     padding-block: 3rem 0.5rem !important;
+}
+
+/* ===========================================================
+   /author/jamal-awil/ ("Write") — gladwellbooks.com-style:
+   featured-piece hero, bio block, "also by" grid
+   =========================================================== */
+
+.write-hero {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem !important;
+}
+
+.write-hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+}
+
+.write-hero__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.05;
+    margin: 0.4rem 0 1rem;
+}
+
+.write-hero__title a {
+    text-decoration: none;
+}
+
+.write-hero__excerpt {
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+}
+
+.write-hero__image img {
+    border-radius: var(--radius);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+}
+
+@media (max-width: 780px) {
+    .write-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .write-hero__image {
+        order: -1;
+    }
+}
+
+.write-bio {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    padding-block: 2.5rem !important;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.write-bio__portrait {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--bg-elevated, var(--bone));
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+}
+
+.write-bio__portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.write-bio__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.3rem;
+}
+
+.write-bio h2 {
+    font-size: 1.6rem;
+    margin: 0 0 0.6rem;
+}
+
+.write-bio__text {
+    color: var(--muted);
+    max-width: 40rem;
+}
+
+.write-bio__links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+.write-bio__links a {
+    text-decoration: none;
+    color: var(--gold-dark);
+}
+
+@media (max-width: 560px) {
+    .write-bio {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+    }
+}
+
+.write-more {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 3rem 4rem !important;
+}
+
+.write-more__heading {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.write-more__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.75rem;
+}
+
+/* ===========================================================
+   /about/ — mission + goals grid
+   =========================================================== */
+
+.about-hero {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    text-align: center;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem !important;
+}
+
+.about-hero__title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+}
+
+.about-hero__lede {
+    font-family: var(--font-sans);
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 34rem;
+    margin-inline: auto;
+}
+
+.goals-grid {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    padding-block: 0 !important;
+}
+
+.goals-grid__item {
+    background: var(--bg);
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.goals-grid__number {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 0 0 0.75rem;
+}
+
+.goals-grid__item h3 {
+    font-size: 1.25rem;
+    margin: 0 0 0.6rem;
+}
+
+.goals-grid__item p:last-child {
+    color: var(--muted);
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .goals-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.about-editor {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--caption);
+    padding-block: 2.5rem 1rem !important;
+}
+
+.about-editor a {
+    color: var(--gold-dark);
+    text-decoration: none;
+}
+
+/* ===========================================================
+   /contact/ — form (or a plain email fallback when no backend
+   endpoint is configured)
+   =========================================================== */
+
+.page--contact .page__lede {
+    color: var(--muted);
+}
+
+.contact-form {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+    padding-block: 1rem 3rem;
+}
+
+.contact-form__row {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.contact-form__row label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--caption);
+}
+
+.contact-form__row input,
+.contact-form__row textarea {
+    font: inherit;
+    font-family: var(--font-sans);
+    padding: 0.75em 1em;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--fg);
+    resize: vertical;
+}
+
+.contact-form button {
+    justify-self: start;
+}
+
+.contact-form-placeholder {
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 1rem 3rem;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--muted);
+}
+
+.contact-form-placeholder a {
+    color: var(--gold-dark);
 }

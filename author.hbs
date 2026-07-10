@@ -1,5 +1,8 @@
 {{!< default}}
 
+{{!-- see author-jamal-awil.hbs for why {{#author}} stays despite gscan's
+      deprecation warning: removing it left {{name}} empty on this
+      template. --}}
 {{#author}}
 <section class="collection-header collection-header--author">
     {{#if profile_image}}

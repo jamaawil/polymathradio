@@ -85,6 +85,14 @@
       "advertise_email": {
         "type": "text",
         "default": ""
+      },
+      "contact_form_action": {
+        "type": "text",
+        "default": ""
+      },
+      "contact_email": {
+        "type": "text",
+        "default": ""
       }
     }
   }

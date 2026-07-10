@@ -1,0 +1,53 @@
+{{!< default}}
+
+{{!-- Custom template for the /contact/ page. The form posts to an
+      Admin-configurable endpoint (Settings -> Design & branding -> Theme
+      settings -> "Contact form action") -- Ghost has no native form
+      backend, so a service like Formspree/Basin needs to be plugged in
+      there. Until it's configured, we show a plain email link instead of
+      a form that would silently fail. --}}
+
+{{#post}}
+<article class="page page--contact">
+    <header class="page__header">
+        <p class="page__eyebrow">&#9642; Contact</p>
+        <h1 class="page__title">{{#if title}}{{title}}{{else}}Get in touch{{/if}}</h1>
+        <p class="page__lede">Tips, corrections, partnerships, or just a note — we read everything.</p>
+    </header>
+
+    {{#if @custom.contact_form_action}}
+    <form class="contact-form" action="{{@custom.contact_form_action}}" method="POST">
+        <div class="contact-form__row">
+            <label for="contact-name">Name</label>
+            <input id="contact-name" type="text" name="name" autocomplete="name" required>
+        </div>
+        <div class="contact-form__row">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="contact-form__row">
+            <label for="contact-subject">Subject</label>
+            <input id="contact-subject" type="text" name="subject">
+        </div>
+        <div class="contact-form__row">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" rows="7" required></textarea>
+        </div>
+        <button type="submit" class="btn btn--gold">Send message</button>
+    </form>
+    {{else}}
+    <div class="contact-form-placeholder">
+        <p>The contact form isn't connected to a backend yet — add a form endpoint (e.g. Formspree) under Settings &rarr; Design &amp; branding &rarr; Theme settings.</p>
+        {{#if @custom.contact_email}}
+        <p>In the meantime, reach us directly at <a href="mailto:{{@custom.contact_email}}">{{@custom.contact_email}}</a>.</p>
+        {{/if}}
+    </div>
+    {{/if}}
+
+    {{#if content}}
+    <div class="page__content">
+        {{content}}
+    </div>
+    {{/if}}
+</article>
+{{/post}}

@@ -1,0 +1,52 @@
+{{!< default}}
+
+{{!-- Custom template for the /about/ page (Ghost convention: page-{slug}.hbs
+      overrides page.hbs for that one page). Mission + a grid explaining
+      Krino's actual goals, using the brand guidelines' own language. --}}
+
+{{#post}}
+<article class="page page--about">
+    <header class="about-hero">
+        <p class="about-hero__eyebrow">&#9642; About Us</p>
+        <h1 class="about-hero__title">Beyond left and right.</h1>
+        <p class="about-hero__lede">Independent U.S. political media — rigorously critical of every side, in service of a politics where people flourish.</p>
+    </header>
+
+    <section class="goals-grid">
+        <div class="goals-grid__item">
+            <p class="goals-grid__number">01</p>
+            <h3>Evidence first</h3>
+            <p>We name our sources and weigh every claim before we print it. Clarity over heat.</p>
+        </div>
+        <div class="goals-grid__item">
+            <p class="goals-grid__number">02</p>
+            <h3>Beyond left and right</h3>
+            <p>Sharp, fair, plain-spoken, and unintimidated — critical of left, right, and center alike. Non-tribal by design.</p>
+        </div>
+        <div class="goals-grid__item">
+            <p class="goals-grid__number">03</p>
+            <h3>Three channels, one standard</h3>
+            <p>Watch, Listen, Read, Learn — whatever the format, it gets the same rigor and the same sourcing.</p>
+        </div>
+        <div class="goals-grid__item">
+            <p class="goals-grid__number">04</p>
+            <h3>Politics, weighed</h3>
+            <p>The honest answer doesn't always flatter either side — which is exactly why it's worth printing.</p>
+        </div>
+    </section>
+
+    {{#if content}}
+    <div class="page__content">
+        {{content}}
+    </div>
+    {{/if}}
+
+    <section class="about-editor">
+        <p>Krino Media is edited by <a href="{{@site.url}}/author/jamal-awil/">Jamal Awil</a>.</p>
+    </section>
+
+    <div class="page__newsletter">
+        {{> "newsletter-cta" heading="Read the record" variant="page-end"}}
+    </div>
+</article>
+{{/post}}

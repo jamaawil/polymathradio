@@ -1,0 +1,68 @@
+{{!< default}}
+
+{{!-- Custom template for this one author (Ghost convention: author-{slug}.hbs
+      overrides author.hbs for a specific author). Modeled after
+      gladwellbooks.com's structure: a featured-piece hero, a bio block with
+      photo, then a grid of other bylined work. --}}
+
+{{#get "posts" filter="authors:jamal-awil" limit="1" as |featured|}}
+{{#foreach featured}}
+<section class="write-hero">
+    <div class="write-hero__body">
+        <p class="write-hero__eyebrow">Latest from Jamal</p>
+        <h1 class="write-hero__title"><a href="{{url}}">{{title}}</a></h1>
+        <p class="write-hero__excerpt">{{excerpt words="30"}}</p>
+        <a class="btn btn--ink" href="{{url}}">Read the piece</a>
+    </div>
+    {{#if feature_image}}
+    <a class="write-hero__image" href="{{url}}">
+        <img src="{{img_url feature_image size="l"}}" loading="lazy" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+    </a>
+    {{/if}}
+</section>
+{{/foreach}}
+{{/get}}
+
+{{!-- gscan flags {{#author}} as deprecated (suggesting {{#primary_author}}
+      or {{#foreach authors}}), but that guidance is for POST-context author
+      access. On an author-archive template this block helper is what
+      actually populates {{name}}/{{bio}}/{{profile_image}} — confirmed by
+      testing: removing it left {{name}} empty. Known gscan false positive
+      for this legitimate use; Casper doesn't ship an equivalent to compare
+      against. --}}
+{{#author}}
+<section class="write-bio">
+    <div class="write-bio__portrait">
+        {{#if profile_image}}
+        <img src="{{profile_image}}" alt="{{name}}" loading="lazy">
+        {{else}}
+        {{> "krino-mark" size="96px" ring=false mark="var(--ink)"}}
+        {{/if}}
+    </div>
+    <div class="write-bio__body">
+        <p class="write-bio__eyebrow">Founding Editor, Krino Media</p>
+        <h2>{{name}}</h2>
+        {{#if bio}}<p class="write-bio__text">{{bio}}</p>{{/if}}
+        <ul class="write-bio__links">
+            {{#if @custom.twitter_url}}<li><a href="{{@custom.twitter_url}}" rel="noopener" target="_blank">X</a></li>{{/if}}
+            {{#if @custom.instagram_url}}<li><a href="{{@custom.instagram_url}}" rel="noopener" target="_blank">Instagram</a></li>{{/if}}
+            {{#if @custom.linkedin_url}}<li><a href="{{@custom.linkedin_url}}" rel="noopener" target="_blank">LinkedIn</a></li>{{/if}}
+        </ul>
+    </div>
+</section>
+{{/author}}
+
+<section class="write-more">
+    <h2 class="write-more__heading">Also by Jamal Awil</h2>
+    <div class="write-more__grid">
+        {{#foreach posts}}
+        {{#unless @first}}
+        {{> "article-card"}}
+        {{/unless}}
+        {{else}}
+        <p class="archive-empty">Nothing else published yet.</p>
+        {{/foreach}}
+    </div>
+</section>
+
+{{pagination}}
