@@ -2259,3 +2259,78 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 .contact-form-placeholder a {
     color: var(--gold-dark);
 }
+
+/* ===========================================================
+   Native Ghost content cards — video, audio, generic embeds.
+   Editors add these directly in the post editor (paste a YouTube/
+   Vimeo/Spotify link, or use the Video/Audio card to upload a
+   file) — Ghost renders the markup, this just makes it responsive
+   and on-brand. card_assets:true in package.json already loads
+   Ghost's own player CSS/JS for the audio/video cards.
+   =========================================================== */
+
+.kg-embed-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.kg-embed-card iframe {
+    width: 100%;
+    border: 0;
+    border-radius: var(--radius);
+}
+
+/* Full-bleed video platforms get a true 16:9 frame */
+.kg-embed-card iframe[src*="youtube.com"],
+.kg-embed-card iframe[src*="youtube-nocookie.com"],
+.kg-embed-card iframe[src*="player.vimeo.com"] {
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+/* Podcast platform widgets (Spotify/SoundCloud/Anchor) keep their
+   own natural height instead of being squashed to 16:9 */
+.kg-embed-card iframe[src*="spotify.com"],
+.kg-embed-card iframe[src*="soundcloud.com"],
+.kg-embed-card iframe[src*="anchor.fm"] {
+    height: 232px;
+}
+
+.kg-video-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.kg-video-card video {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius);
+}
+
+.kg-audio-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+}
+
+.kg-bookmark-card a {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+/* Video/audio embeds read better wide on Watch/Listen posts */
+.post--episode .post__content .kg-embed-card,
+.post--episode .post__content .kg-video-card,
+.post--episode .post__content .kg-audio-card {
+    grid-column: wide-start / wide-end;
+}
+
+@media (max-width: 780px) {
+    .post--episode .post__content .kg-embed-card,
+    .post--episode .post__content .kg-video-card,
+    .post--episode .post__content .kg-audio-card {
+        grid-column: main-start / main-end;
+    }
+}
