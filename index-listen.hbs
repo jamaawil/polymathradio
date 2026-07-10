@@ -5,25 +5,48 @@
 <section class="collection-header">
     <p class="collection-header__eyebrow">&#9686; Listen</p>
     <h1>{{#if name}}{{name}}{{else}}Listen{{/if}}</h1>
-    <p>{{#if description}}{{description}}{{else}}Radio &amp; podcast, on-air daily.{{/if}}</p>
+    <p>{{#if description}}{{description}}{{else}}Radio &amp; podcast, on-air daily &mdash; new episodes, old favorites, and the story behind the story.{{/if}}</p>
 </section>
 {{/foreach}}
 {{else}}
 <section class="collection-header">
     <p class="collection-header__eyebrow">&#9686; Listen</p>
     <h1>Listen</h1>
-    <p>Radio &amp; podcast, on-air daily.</p>
+    <p>Radio &amp; podcast, on-air daily &mdash; new episodes, old favorites, and the story behind the story.</p>
 </section>
 {{/get}}
 
-<div class="collection-header__listen">
-    {{> "social-links"}}
+<div class="listen-layout">
+    <div class="listen-layout__main">
+        <section class="listen-list">
+            {{#foreach posts}}
+            {{> "listen-row"}}
+            {{/foreach}}
+        </section>
+
+        {{pagination}}
+    </div>
+
+    <aside class="listen-layout__sidebar">
+        <div class="listen-sidebar__box">
+            {{> "newsletter-cta" heading="100% on the record" variant="sidebar"}}
+        </div>
+
+        <div class="listen-sidebar__box">
+            <h3>Browse by topic</h3>
+            <ul class="listen-sidebar__topics">
+                <li><a href="{{@site.url}}/tag/economy/">Economy</a></li>
+                <li><a href="{{@site.url}}/tag/elections/">Elections</a></li>
+                <li><a href="{{@site.url}}/tag/immigration/">Immigration</a></li>
+                <li><a href="{{@site.url}}/tag/foreign-policy/">Foreign Policy</a></li>
+                <li><a href="{{@site.url}}/tag/law/">Law &amp; Courts</a></li>
+                <li><a href="{{@site.url}}/tag/media/">Media</a></li>
+            </ul>
+        </div>
+
+        <div class="listen-sidebar__box">
+            <h3>Listen on</h3>
+            {{> "social-links"}}
+        </div>
+    </aside>
 </div>
-
-<section class="listen-list">
-    {{#foreach posts}}
-    {{> "listen-row"}}
-    {{/foreach}}
-</section>
-
-{{pagination}}
