@@ -1,13 +1,17 @@
 {{!< default}}
 
 {{#post}}
-<article class="post{{#has tag="watch, listen"}} post--episode{{/has}}{{#has tag="shop"}} post--product{{/has}}{{#has tag="stream"}} post--breaking{{/has}}">
+{{#has tag="read"}}
+<div class="reading-progress" data-reading-progress aria-hidden="true"></div>
+{{/has}}
+<article class="post{{#has tag="watch, listen"}} post--episode{{/has}}{{#has tag="shop"}} post--product{{/has}}{{#has tag="stream"}} post--breaking{{/has}}{{#has tag="#dropcap"}} has-dropcap{{/has}}{{#has tag="#vertical"}} is-vertical{{/has}}">
     <header class="post__header">
         {{#has tag="watch"}}<p class="post__eyebrow">&#9656; Watch</p>{{/has}}
         {{#has tag="listen"}}<p class="post__eyebrow">&#9686; Listen</p>{{/has}}
         {{#has tag="read"}}<p class="post__eyebrow">Analysis &middot; The Record</p>{{/has}}
         {{#has tag="shop"}}<p class="post__eyebrow">&#9670; Shop</p>{{/has}}
         {{#has tag="stream"}}<p class="post__eyebrow">&#9670; Stream &middot; Breaking</p>{{/has}}
+        {{#has tag="learn"}}<p class="post__eyebrow">&#9670; Learn{{#has tag="#lesson"}} &middot; Lesson{{/has}}</p>{{/has}}
 
         <h1 class="post__title">{{title}}</h1>
 
@@ -51,9 +55,61 @@
     {{/if}}
     {{/has}}
 
+    {{#has tag="read"}}
+    <aside class="post-toc" data-toc hidden>
+        <p class="post-toc__label">In this piece</p>
+        <ul class="post-toc__list" data-toc-list></ul>
+    </aside>
+    {{/has}}
+
     <div class="post__content">
         {{content}}
     </div>
+
+    {{!-- Lesson nav + completion — opt in per post via an internal #lesson
+          tag (checklist pattern: course = a tag grouping, lessons = posts
+          tagged #lesson within it). Progress is localStorage-only; see
+          assets/js/main.js and README for why a durable cross-device
+          store would need something like Supabase, out of scope here. --}}
+    {{#has tag="#lesson"}}
+    <div class="lesson-complete-row">
+        <button type="button" class="btn btn--gold" data-lesson-complete="{{slug}}">Mark as complete</button>
+    </div>
+    <nav class="lesson-nav" aria-label="Course navigation">
+        {{#prev_post in="primary_tag"}}<a class="lesson-nav__prev" href="{{url}}">&larr; {{title}}</a>{{/prev_post}}
+        {{#next_post in="primary_tag"}}<a class="lesson-nav__next" href="{{url}}">{{title}} &rarr;</a>{{/next_post}}
+    </nav>
+    {{/has}}
+
+    {{#has tag="watch"}}
+    {{#get "posts" filter="primary_tag:watch+id:-{{id}}" limit="4" as |relatedVideos|}}
+    {{#if relatedVideos}}
+    <div class="post__related">
+        <h2 class="post__related-heading">More to watch</h2>
+        <div class="post__related-grid">
+            {{#foreach relatedVideos}}
+            {{> "watch-card"}}
+            {{/foreach}}
+        </div>
+    </div>
+    {{/if}}
+    {{/get}}
+    {{/has}}
+
+    {{#has tag="read"}}
+    {{#get "posts" filter="primary_tag:read+id:-{{id}}" limit="3" as |relatedReading|}}
+    {{#if relatedReading}}
+    <div class="post__related">
+        <h2 class="post__related-heading">Related reading</h2>
+        <div class="post__related-grid">
+            {{#foreach relatedReading}}
+            {{> "article-card"}}
+            {{/foreach}}
+        </div>
+    </div>
+    {{/if}}
+    {{/get}}
+    {{/has}}
 
     {{#if primary_author.bio}}
     <div class="post__author">
@@ -72,27 +128,22 @@
         {{#next_post}}<a class="post__pagination-next" href="{{url}}">{{title}} &rarr;</a>{{/next_post}}
     </nav>
 
+    {{!-- Native Ghost comments — member-gated per Settings -> Membership
+          -> Access (currently "All members"). Renders in a sandboxed
+          iframe Ghost controls; the theme can only size/space the
+          wrapper, not restyle the comments UI itself. Skipped on Shop
+          product pages, where a discussion thread doesn't fit. --}}
+    {{#has tag="shop"}}{{else}}
+    <div class="post__comments">
+        {{comments}}
+    </div>
+    {{/has}}
+
     <div class="post__newsletter">
         {{> "newsletter-cta" heading="Enjoyed this one?" variant="end-of-post"}}
     </div>
 </article>
 
-{{#has tag="watch, listen"}}
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "PodcastEpisode",
-    "name": {{title}},
-    "url": "{{url absolute="true"}}",
-    "datePublished": "{{date format="YYYY-MM-DD"}}",
-    "description": {{meta_description}},
-    {{#if feature_image}}"image": "{{img_url feature_image size="l"}}",{{/if}}
-    "partOfSeries": {
-        "@type": "PodcastSeries",
-        "name": "The Krino Politics Podcast",
-        "url": "{{@site.url}}/listen/"
-    }
-}
-</script>
-{{/has}}
+{{#has tag="watch"}}{{> "schema-video"}}{{/has}}
+{{#has tag="listen"}}{{> "schema-podcast"}}{{/has}}
 {{/post}}

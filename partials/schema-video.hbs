@@ -1,0 +1,27 @@
+{{!-- VideoObject JSON-LD for #watch posts. Google requires contentUrl OR
+      embedUrl, and duration is strongly recommended — Ghost has no
+      structured field for either (video lives inside {{content}} as a
+      pasted embed or uploaded file, not a dedicated post property), so
+      this ships the fields we can know for certain. For a specific
+      episode where exact embedUrl/duration matter for Search rich
+      results, add them per-post via Post settings -> Code injection
+      (head) rather than guessing here. --}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": {{title}},
+    "url": "{{url absolute="true"}}",
+    "uploadDate": "{{date format="YYYY-MM-DD"}}",
+    "description": {{meta_description}},
+    {{#if feature_image}}"thumbnailUrl": ["{{img_url feature_image size="l"}}"],{{/if}}
+    "publisher": {
+        "@type": "Organization",
+        "name": {{@site.title}},
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{@site.url}}/favicon.ico"
+        }
+    }
+}
+</script>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{{!-- Custom iTunes-namespaced podcast feed for Listen, separate from
+      Ghost's auto-generated /listen/rss/ (which this route overrides —
+      routes: entries take priority over the collection's own default
+      feed at the same path). Ghost's default feed has no iTunes tags.
+
+      Known real gap: <enclosure> (the actual audio file URL Apple/
+      Spotify require) is intentionally omitted. Ghost has no structured
+      "audio file URL" field on a post — audio lives inside {{content}}
+      as a native Audio card or an embedded platform link, and there's
+      no reliable way to extract "the audio file for this episode" in a
+      Handlebars template. Two real paths forward: (1) host episodes on
+      dedicated podcast infra (Transistor etc.) and point Apple/Spotify
+      at *that* feed instead, using this one just for the website's own
+      /listen/ page; or (2) add the enclosure per-episode by hand via
+      Post settings -> Code injection once each episode has a stable,
+      public audio URL. Don't submit this feed URL to Apple/Spotify as-is
+      — it will fail validation without enclosures. --}}
+<rss version="2.0"
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>{{@site.title}} — Listen</title>
+    <link>{{@site.url}}/listen/</link>
+    <atom:link href="{{@site.url}}/listen/rss/" rel="self" type="application/rss+xml"/>
+    <description>{{@custom.newsletter_intro_text}}</description>
+    <language>en-us</language>
+    {{#if @site.icon}}<itunes:image href="{{@site.icon}}"/>{{/if}}
+    <itunes:category text="News">
+        <itunes:category text="Politics"/>
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:author>{{@site.title}}</itunes:author>
+    <itunes:owner>
+        <itunes:name>{{@site.title}}</itunes:name>
+        {{#if @custom.contact_email}}<itunes:email>{{@custom.contact_email}}</itunes:email>{{/if}}
+    </itunes:owner>
+    <itunes:type>episodic</itunes:type>
+    {{#get "posts" filter="primary_tag:listen" limit="100" include="authors" order="published_at desc" as |episodes|}}
+    {{#foreach episodes}}
+    <item>
+        <title>{{title}}</title>
+        <link>{{url absolute="true"}}</link>
+        <guid isPermaLink="true">{{url absolute="true"}}</guid>
+        <pubDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</pubDate>
+        <description><![CDATA[{{excerpt}}]]></description>
+        <content:encoded><![CDATA[{{content}}]]></content:encoded>
+        <itunes:author>{{@site.title}}</itunes:author>
+        <itunes:summary>{{excerpt}}</itunes:summary>
+        <itunes:explicit>false</itunes:explicit>
+    </item>
+    {{/foreach}}
+    {{/get}}
+</channel>
+</rss>

@@ -1,0 +1,61 @@
+// Minimal service worker: cache-first for the theme's own static assets
+// (CSS/JS/fonts/images under /assets/), network-first for everything else
+// (posts, pages, RSS — anything that should always be fresh). Versioned
+// cache name so a deploy invalidates old assets automatically.
+//
+// Served from the site root (routes.yaml -> /sw.js) rather than from
+// /assets/js/ on purpose: a service worker's default scope is limited to
+// its own directory and everything below it, so a copy sitting under
+// /assets/js/ could only ever control requests to /assets/js/* — nearly
+// useless for a "cache the site's static assets" worker. Root-scoped, it
+// can see every request.
+var CACHE_NAME = "krino-static-v1";
+var STATIC_PATTERN = /\/assets\//;
+
+self.addEventListener("install", function (event) {
+    self.skipWaiting();
+});
+
+self.addEventListener("activate", function (event) {
+    event.waitUntil(
+        caches.keys().then(function (keys) {
+            return Promise.all(
+                keys
+                    .filter(function (key) {
+                        return key !== CACHE_NAME;
+                    })
+                    .map(function (key) {
+                        return caches.delete(key);
+                    })
+            );
+        })
+    );
+    self.clients.claim();
+});
+
+self.addEventListener("fetch", function (event) {
+    var url = new URL(event.request.url);
+    if (event.request.method !== "GET" || url.origin !== self.location.origin) {
+        return;
+    }
+
+    if (STATIC_PATTERN.test(url.pathname)) {
+        event.respondWith(
+            caches.open(CACHE_NAME).then(function (cache) {
+                return cache.match(event.request).then(function (cached) {
+                    var network = fetch(event.request)
+                        .then(function (response) {
+                            if (response.ok) {
+                                cache.put(event.request, response.clone());
+                            }
+                            return response;
+                        })
+                        .catch(function () {
+                            return cached;
+                        });
+                    return cached || network;
+                });
+            })
+        );
+    }
+});

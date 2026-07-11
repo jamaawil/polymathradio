@@ -3,6 +3,14 @@ routes:
     template: page-advertise
     data: page.advertise
 
+  /listen/rss/:
+    template: listen-rss
+    content_type: text/xml
+
+  /service-worker/:
+    template: sw
+    content_type: application/javascript
+
 collections:
   /watch/:
     permalink: /watch/{slug}/

@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset "css/screen.css"}}">
+    <link rel="manifest" href="{{asset "manifest.json"}}">
     <style>:root{--gold: {{@custom.gold}}; --ink: {{@custom.ink}};}</style>
     <script>
         (function () {
@@ -23,7 +24,7 @@
         })();
     </script>
 </head>
-<body class="{{body_class}}">
+<body class="{{body_class}}{{#if @member}} member-logged-in{{/if}}">
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     {{> "site-header"}}
@@ -34,7 +35,25 @@
 
     {{> "site-footer"}}
 
+    {{!-- Sticky mini-player: mirrors whichever native <audio> element
+          (Koenig Audio card) is playing on the current page. Page-scoped,
+          not cross-navigation — see README for why true persistent
+          playback across page loads would need a bigger architecture
+          change (a pjax/SPA layer) than a standard Ghost theme takes on. --}}
+    <div class="sticky-player" data-sticky-player hidden>
+        <button type="button" class="sticky-player__toggle" data-sticky-player-toggle aria-label="Play or pause">Pause</button>
+        <span class="sticky-player__title" data-sticky-player-title></span>
+        <button type="button" class="sticky-player__close" data-sticky-player-close aria-label="Close player">&times;</button>
+    </div>
+
     <script src="{{asset "js/main.js"}}" defer></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("/service-worker/", { scope: "/" }).catch(function () {});
+            });
+        }
+    </script>
     {{ghost_foot}}
 </body>
 </html>

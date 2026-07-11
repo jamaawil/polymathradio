@@ -1,6 +1,6 @@
 # Krino Media — Ghost theme
 
-The theme that runs krino.media: Watch, Listen, Read (with Essays/Fiction/
+The theme that runs krinomedia.com: Watch, Listen, Read (with Essays/Fiction/
 Poems/Book Review sub-sections), Learn (certificate programs), Stream (live
 + breaking updates), Shop (with Reports/Merch/Certificates sub-sections),
 Advertise, About Us, Contact, and Jamal Awil's Writer page. Built to match
@@ -169,3 +169,117 @@ git add -A && git commit -m "..." && git push origin main
 - On `/watch/` and `/listen/` posts specifically, the embed is the page's
   hero — the static feature image is skipped for these two sections so
   the real player isn't competing with a duplicate thumbnail above it.
+- YouTube embeds on Watch posts render as a click-to-load thumbnail
+  facade (real YouTube JS/iframe doesn't load until clicked) — a Core Web
+  Vitals win, handled entirely in `assets/js/main.js`, no editor action
+  needed.
+
+## Internal tags (opt-in per post, no public archive page)
+
+Add these as extra tags on a post — they're `#`-prefixed so Ghost never
+gives them a public `/tag/` page:
+
+| Tag | Effect |
+|---|---|
+| `#dropcap` | Large decorative first letter on the post's opening paragraph |
+| `#vertical` | Forces embedded video/audio to a 9:16 frame (Shorts/Reels-style posts) |
+| `#lesson` | Turns a Learn post into a course lesson: adds a "Mark as complete" button and prev/next lesson nav (scoped to same primary tag — see Learning pillar below) |
+| `breakdown` (no `#`, public tag) | Makes a post eligible for the homepage's "The Breakdown" spotlight |
+
+## Video pillar (Watch)
+
+- `partials/schema-video.hbs` emits `VideoObject` JSON-LD. Real gap: Ghost
+  has no structured field for a video's `duration` or `contentUrl`/
+  `embedUrl` (the video lives inside `{{content}}` as a pasted embed, not
+  a post property), so those are omitted rather than guessed. For a
+  specific episode where exact values matter for Search rich results, add
+  them via that post's Settings → Code injection (head).
+- "More to watch" at the bottom of every Watch post pulls 4 other Watch
+  posts via `{{#get}}`.
+- `#vertical` tag (above) for Shorts-style vertical video posts.
+
+## Podcast pillar (Listen)
+
+- **Custom iTunes-namespaced feed** at `/listen/rss/` (`listen-rss.hbs`,
+  registered in `routes.yaml` — it overrides Ghost's own auto-generated
+  feed at that same path, which has no podcast tags).
+- **Real gap, don't submit this feed to Apple/Spotify as-is**: it has no
+  `<enclosure>` (the actual audio file URL, which those platforms
+  require) for the same structural reason as the video schema gap above.
+  Two real paths forward: host episodes on dedicated podcast infra
+  (Transistor etc.) and submit *that* feed to Apple/Spotify instead,
+  using this one only for the site's own `/listen/` page and its RSS
+  reader subscribers; or hand-add enclosures per episode via Code
+  injection once each has a stable public audio URL.
+- **Sticky mini-player**: mirrors whichever native Audio card is playing
+  in a fixed bottom bar. This is page-scoped, not cross-navigation — full
+  page loads reset it. True persistent playback across navigation would
+  need a pjax/SPA layer, a materially bigger change than a standard Ghost
+  theme takes on.
+- **Transcripts**: use a native `<details><summary>Transcript</summary>...
+  </details>` block in the post editor's HTML card — styled automatically,
+  no theme change needed per episode.
+
+## Reading pillar (Read)
+
+- Reading progress bar + auto-built table of contents (3+ headings
+  required) on every Read post — see `assets/js/main.js`.
+- "Related reading" pulls 3 other Read posts.
+- Footnotes (Markdown card `[^1]`) and pull quotes (`.kg-blockquote-alt`
+  class on a quote block) are styled automatically.
+
+## Learning pillar (Learn)
+
+Two ways to use Learn, both supported:
+- **Standalone certificate program** (current seeded content): one post
+  = one program, sold via the Free/Learn membership tier or one-time via
+  Shop → Certificates.
+- **Multi-lesson course**: tag each lesson post `learn` + `#lesson` (plus
+  any shared secondary tag you want for grouping/display). Prev/next
+  lesson nav uses Ghost's native `{{#prev_post in="primary_tag"}}`, which
+  scopes navigation to same-pillar posts — with only one course live at a
+  time this means "the other Learn posts in order"; with multiple
+  concurrent courses you'd want a more specific secondary-tag-scoped
+  nav, which Ghost's native prev/next helper doesn't support out of the
+  box (only `in="primary_tag"` or `in="tag"` for *all* shared tags, not a
+  single specific one).
+- **Completion tracking is localStorage-only** (`assets/js/main.js`), per
+  browser, not per member, not cross-device. Ghost has no native
+  per-member progress store. For durable, cross-device tracking, the
+  checklist's own suggestion — a small Supabase table keyed by member
+  email, read via a client-side fetch against the Content API — is the
+  right next step, not something this theme repo builds on its own.
+- Downloadable resources: native Ghost **File card** (`+` menu → File),
+  styled automatically (`.kg-file-card`).
+
+## Social web / fediverse
+
+`social_web_enabled` is **on by default in this Ghost 6 install** —
+nothing to configure. It just doesn't do anything visible on localhost:
+the ActivityPub federation gateway needs a real public HTTPS domain to
+actually serve actor/webfinger endpoints, which is exactly what's missing
+in local dev. Once this theme is live on krinomedia.com, no further setup
+is needed for the site to become a followable fediverse account.
+
+## PWA
+
+- `assets/manifest.json` + a service worker at `/service-worker/`
+  (registered from a **routes.yaml route, not a static asset file** — a
+  service worker's scope defaults to its own directory, and a copy sitting
+  under `/assets/js/` could only ever control requests to that one
+  subfolder; root-scoped via routes.yaml, it can see every request).
+- **Real gap**: the manifest icon is the existing `favicon.svg`. No PNG
+  icons exist (192×192, 512×512 are the usual requirement) — this
+  machine has no SVG→PNG conversion tool installed and installing one
+  wasn't in scope for a theme-code pass. Generate real PNGs from
+  `assets/images/krino-mark.svg` before relying on "Add to Home Screen"
+  looking right on iOS, which doesn't accept SVG manifest icons.
+
+## Comments — real constraints
+
+`{{comments}}` is enabled (Settings → Membership → Access → currently
+"All members"). Two things this theme genuinely cannot change: the
+comments UI renders in a sandboxed iframe Ghost controls, so no theme CSS
+reaches it; and there's no public Comments write API (as of this Ghost
+version), which matters if you ever want a headless/non-Ghost-templated
+frontend to show or post comments.

@@ -1,0 +1,20 @@
+{{!-- PodcastEpisode JSON-LD for #listen posts. Same caveat as
+      schema-video.hbs: no structured duration field exists in Ghost, so
+      it's omitted rather than guessed. --}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "PodcastEpisode",
+    "name": {{title}},
+    "url": "{{url absolute="true"}}",
+    "datePublished": "{{date format="YYYY-MM-DD"}}",
+    "description": {{meta_description}},
+    {{#if feature_image}}"image": "{{img_url feature_image size="l"}}",{{/if}}
+    "partOfSeries": {
+        "@type": "PodcastSeries",
+        "name": "The Krino Politics Podcast",
+        "url": "{{@site.url}}/listen/",
+        "webFeed": "{{@site.url}}/listen/rss/"
+    }
+}
+</script>

@@ -1,0 +1,18 @@
+{
+  "name": "Krino Media",
+  "short_name": "Krino",
+  "description": "Independent U.S. political media — Watch, Listen, Read, Learn.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4EFE3",
+  "theme_color": "#16140F",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
