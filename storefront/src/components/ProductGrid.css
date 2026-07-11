@@ -1,0 +1,21 @@
+.product-grid-section {
+    margin-bottom: 3rem;
+}
+
+.product-grid-section__heading {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.75rem;
+}
+
+.product-grid__empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 3rem 0;
+}

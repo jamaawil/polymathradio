@@ -12,6 +12,12 @@ paid subscriptions, the newsletter, Portal, RSS, SEO tags, etc.) works
 exactly as it would with any theme. Nothing here is a special case that
 needs extra steps beyond what any Ghost site owner already does in Admin.
 
+**`/shop/` is the real Shop** — a page in this theme (`index-shop.hbs`
+and friends), not a separate site. There's a `storefront/` folder in this
+repo with a standalone React/Vite build of a Gumroad-style storefront —
+it's dormant reference code, not deployed or wired into the theme's
+build; see `storefront/README.md` before assuming it's live.
+
 ## Everyday editing (no code required)
 
 Almost everything a publisher needs day-to-day happens in **Ghost Admin**

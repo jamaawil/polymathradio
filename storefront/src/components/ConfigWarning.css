@@ -1,0 +1,31 @@
+.config-warning {
+    max-width: 40rem;
+    margin: 3rem auto;
+    padding: 2rem;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+}
+
+.config-warning h1 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    margin: 0 0 0.75rem;
+}
+
+.config-warning p {
+    color: var(--muted);
+}
+
+.config-warning code {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1em 0.4em;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+}
+
+.config-warning ol {
+    color: var(--muted);
+    padding-left: 1.3rem;
+}

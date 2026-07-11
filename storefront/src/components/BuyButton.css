@@ -1,0 +1,32 @@
+.buy-button {
+    display: inline-flex;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 0.9em 1.8em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.buy-button:hover {
+    filter: brightness(1.05);
+}
+
+.buy-button-placeholder {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    color: var(--muted);
+}
+
+.buy-button-placeholder a {
+    color: var(--gold-dark, #9b7416);
+    font-weight: 600;
+    text-decoration: none;
+}

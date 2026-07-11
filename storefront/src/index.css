@@ -1,0 +1,150 @@
+@import "./tokens.css";
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    color-scheme: light dark;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.skip-link {
+    position: absolute;
+    top: -3rem;
+    left: 1rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    z-index: 1000;
+    transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+.page-inner {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+.discover-hero {
+    text-align: center;
+    max-width: 36rem;
+    margin: 1rem auto 3rem;
+}
+
+.discover-hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark, #9b7416);
+}
+
+.discover-hero h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+}
+
+.discover-hero__lede {
+    color: var(--muted);
+}
+
+.discover-status {
+    text-align: center;
+    color: var(--muted);
+    padding: 3rem 0;
+}
+
+.discover-status--error {
+    color: #b3392c;
+}
+
+.product-detail__back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--gold-dark, #9b7416);
+}
+
+.product-detail__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.product-detail__image {
+    border-radius: var(--radius);
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.product-detail__category {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dark, #9b7416);
+}
+
+.product-detail__seller {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--caption);
+}
+
+.product-detail__price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gold-dark, #9b7416);
+}
+
+.product-detail__description {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 700px) {
+    .product-detail__grid {
+        grid-template-columns: 1fr;
+    }
+}

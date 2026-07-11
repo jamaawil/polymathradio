@@ -1,0 +1,30 @@
+.category-nav {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.category-nav__item {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--caption);
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1rem;
+}
+
+.category-nav__item:hover {
+    color: var(--fg);
+}
+
+.category-nav__item.is-active {
+    color: var(--gold-dark, #9b7416);
+    border-bottom-color: var(--gold);
+}

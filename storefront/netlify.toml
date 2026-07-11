@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# React Router uses client-side routing (BrowserRouter) — every path
+# needs to fall through to index.html or a hard refresh on /product/xyz
+# would 404 at the CDN edge before React ever loads.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,51 @@
+/* Krino Media shared design tokens — mirrors the values in
+   krino-media-theme/assets/css/screen.css exactly (Bone/Ink/Gold/Slate/
+   Stone, Fraunces/Inter/JetBrains Mono). Kept as a single small file on
+   purpose so it can eventually be published once (a tiny npm package or
+   a CDN-hosted file) and imported by both the Ghost theme and this
+   storefront instead of hand-copied in two places — for now it's
+   hand-synced, so if the theme's tokens change, update both. */
+
+:root {
+    --bone: #F4EFE3;
+    --ink: #16140F;
+    --gold: #C8971F;
+    --gold-dark: #9b7416;
+    --slate: #33424A;
+    --stone: #8A867C;
+    --border: #d8d2c4;
+
+    --bg: var(--bone);
+    --bg-elevated: #ffffff;
+    --fg: var(--ink);
+    --muted: var(--slate);
+    --caption: var(--stone);
+
+    --font-display: Fraunces, serif;
+    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+    --content-width: 72rem;
+    --radius: 0.5rem;
+    --shadow: 0 1px 2px rgba(22, 20, 15, 0.06), 0 10px 28px rgba(22, 20, 15, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] {
+        --bg: var(--ink);
+        --bg-elevated: #1c1a14;
+        --fg: var(--bone);
+        --muted: #a9c1c9;
+        --caption: #a49f8f;
+        --border: #33302688;
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: var(--ink);
+    --bg-elevated: #1c1a14;
+    --fg: var(--bone);
+    --muted: #a9c1c9;
+    --caption: #a49f8f;
+    --border: #33302688;
+}
