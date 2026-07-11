@@ -23,20 +23,23 @@
 {{/foreach}}
 {{/get}}
 
-{{!-- gscan flags {{#author}} as deprecated (suggesting {{#primary_author}}
-      or {{#foreach authors}}), but that guidance is for POST-context author
-      access. On an author-archive template this block helper is what
-      actually populates {{name}}/{{bio}}/{{profile_image}} — confirmed by
-      testing twice now: removing it, or swapping in {{#foreach authors}},
-      both left this whole section rendering nothing (`authors` isn't a
-      populated array at this template's root context; {{#author}} is the
-      only helper that resolves fields here). Casper's own author.hbs uses
-      this same {{#author}} pattern — gscan just doesn't extend its
-      allowlist to author-{slug}.hbs override templates, only the literal
-      author.hbs filename, which is why only this file gets flagged and
-      the generic author.hbs doesn't. Confirmed false positive, not a
-      theme bug. --}}
-{{#author}}
+{{!-- Bio block. Ghost's deprecated author-context block helper (the one
+      gscan suggests replacing with {{#primary_author}} or
+      {{#foreach authors}}) would also resolve these fields here, and is
+      in fact the ONLY one of the three that actually works on an
+      author-{slug}.hbs override template ({{#primary_author}} and
+      {{#foreach authors}} both render nothing here — confirmed by
+      testing). But gscan flags that deprecated helper as an error in any
+      file not literally named author.hbs, with no allowance for
+      author-{slug}.hbs overrides -- a real gscan limitation, not a theme
+      bug (note: don't literally reference that helper's own syntax in
+      this comment, or gscan flags it here too — it does raw text
+      matching, not real Handlebars parsing, so it can't tell a comment
+      from real code). Querying the author as a resource via
+      {{#get "authors"}} sidesteps the whole issue: same data, zero gscan
+      warnings on upload. --}}
+{{#get "authors" filter="slug:jamal-awil" limit="1" as |bioAuthor|}}
+{{#foreach bioAuthor}}
 <section class="write-bio">
     <div class="write-bio__portrait">
         {{#if profile_image}}
@@ -56,7 +59,8 @@
         </ul>
     </div>
 </section>
-{{/author}}
+{{/foreach}}
+{{/get}}
 
 <section class="write-more">
     <h2 class="write-more__heading">Pieces by Jamal Awil</h2>
