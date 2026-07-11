@@ -349,9 +349,53 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 
 .nav-toggle {
     display: none;
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.nav-toggle__bar,
+.nav-toggle__bar::before,
+.nav-toggle__bar::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 1.4rem;
+    height: 2px;
+    background: var(--fg);
+    transform: translateX(-50%);
+    transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+}
+
+.nav-toggle__bar {
+    top: 50%;
+    margin-top: -1px;
+}
+
+.nav-toggle__bar::before {
+    top: -0.5rem;
+}
+
+.nav-toggle__bar::after {
+    top: 0.5rem;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar {
+    background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::before {
+    top: 0;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::after {
+    top: 0;
+    transform: translateX(-50%) rotate(-45deg);
 }
 
 @media (max-width: 780px) {
