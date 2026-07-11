@@ -44,7 +44,8 @@ This is set in `routes.yaml` and doesn't need code changes to use:
 | Primary tag | Section | URL pattern |
 |---|---|---|
 | `watch` | Watch | `/watch/{slug}/` |
-| `listen` | Listen | `/listen/{slug}/` |
+| `listen` + a show tag (see below) | Listen → that show | `/listen/shows/{show}/{slug}/` |
+| `listen` (no show tag) | Listen → All only | `/listen/{slug}/` |
 | `read` + secondary tag `essays` | Read → Essays | `/read/essays/{slug}/` |
 | `read` + secondary tag `fiction` | Read → Fiction | `/read/fiction/{slug}/` |
 | `read` + secondary tag `poems` | Read → Poems | `/read/poems/{slug}/` |
@@ -60,6 +61,48 @@ This is set in `routes.yaml` and doesn't need code changes to use:
 
 Also meaningful: tag it `breakdown` to make a post eligible for the
 homepage's "The Breakdown" spotlight card.
+
+## Listen → Shows → Seasons
+
+Each **show** is a real Ghost tag (not a separate content type) — its
+`name`, `description`, and `feature_image` are the show's title, blurb,
+and thumbnail on `/listen/shows/`. Tag an episode with `listen` + a show
+tag (e.g. `krino-politics-podcast`) + a season tag (`season-1` through
+`season-4`) and it automatically appears on that show's page, grouped
+under the right season, with a season tab if any episodes exist for it.
+An episode with just `listen` and no show tag still shows up in "All
+episodes" on `/listen/` — shows are additive, not required.
+
+**5 shows ship seeded**: The Krino Politics Podcast, On the Record,
+Breaking Points, The Fact Check, Cross Examined — each with one Season 1
+episode. No thumbnails are set (falls back to the Krino mark) since no
+real show art exists yet; upload one per show via Admin → Tags → (the
+show) → Feature image.
+
+**Adding a 6th show is two steps, no code**: create a new tag in Admin
+(with a description, ideally a feature image), then tag episodes with it
+plus `listen` and a season tag — it'll show up in "All episodes" and on
+its own `/tag/{slug}/` archive immediately. **To get it a real
+`/listen/shows/{slug}/` page** (not just the generic tag archive) needs
+one small code change: add a new collection block to `routes.yaml`
+(copy one of the 5 existing `/listen/shows/{show}/` blocks) and a new
+template file that calls `{{> "show-page" showSlug="..."}}` — see
+`index-listen-show-cross-examined.hbs` for the ~2-line pattern to copy.
+This is a deliberate ceiling, not an oversight: Ghost's routes.yaml
+doesn't support a single dynamic `/listen/shows/{any-slug}/` route, so
+each show needs its own explicit block, same as Read's Essays/Fiction/
+Poems/Book Review sub-sections.
+
+**Real bug hit and fixed while seeding this**: when creating a post via
+the Admin API and referencing an *existing* tag by `{"name": slug,
+"slug": slug}`, Ghost matched by name (not slug) and silently created a
+duplicate tag (`krino-politics-podcast-2`) instead of reusing the real
+one — the episode ended up in "All episodes" but not on its show page,
+and the real tag's description went unused. Fixed by referencing the
+existing tag by its actual `id` instead. Worth knowing if you ever script
+content creation against this site: **reference existing tags by id, not
+by name/slug**, when you need to guarantee reuse rather than risk a
+duplicate.
 
 **Shop has no cart or checkout** — Ghost doesn't have one natively. Each
 product post's "Buy now" is a real link *you* add: open the product post,

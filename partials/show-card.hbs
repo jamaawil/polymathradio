@@ -1,0 +1,21 @@
+{{!-- Expects to be inside a {{#get "tags" ...}} loop context (a "show"
+      is a Ghost tag with its own feature_image + description — real
+      metadata, not fabricated). Tag slugs for shows match their URL
+      segment exactly (e.g. slug "krino-politics-podcast" -> /listen/shows/krino-politics-podcast/)
+      so no slug manipulation is needed here. --}}
+<article class="show-card">
+    <a class="show-card__image" href="{{@site.url}}/listen/shows/{{slug}}/">
+        {{#if feature_image}}
+        <img src="{{img_url feature_image size="m"}}" loading="lazy" alt="{{name}}">
+        {{else}}
+        <span class="show-card__avatar">{{> "krino-mark" size="40px" ring=false mark="var(--gold)"}}</span>
+        {{/if}}
+    </a>
+    <div class="show-card__body">
+        <h3 class="show-card__title"><a href="{{@site.url}}/listen/shows/{{slug}}/">{{name}}</a></h3>
+        {{#if description}}<p class="show-card__description">{{description}}</p>{{/if}}
+        {{#if count.posts}}
+        <p class="show-card__count">{{plural count.posts empty="No episodes yet" singular="1 episode" plural="% episodes"}}</p>
+        {{/if}}
+    </div>
+</article>

@@ -1,0 +1,89 @@
+{{!-- Shared content for every /listen/shows/{show}/ page — parameterize
+      with showSlug (must match a real tag slug). Season support checks
+      season-1 through season-4 (a reasonable ceiling to start; if a show
+      ever needs a 5th season, extend both loops below and in the CSS).
+      Usage: {{> "show-page" showSlug="krino-politics-podcast"}} --}}
+
+{{#get "tags" filter="slug:{{showSlug}}" limit="1" include="count.posts" as |showTag|}}
+{{#foreach showTag}}
+<section class="show-hero">
+    <div class="show-hero__image">
+        {{#if feature_image}}
+        <img src="{{img_url feature_image size="l"}}" loading="lazy" alt="{{name}}">
+        {{else}}
+        <span class="show-hero__avatar">{{> "krino-mark" size="72px" ring=false mark="var(--gold)"}}</span>
+        {{/if}}
+    </div>
+    <div class="show-hero__body">
+        <p class="show-hero__eyebrow">&#9686; Show</p>
+        <h1>{{name}}</h1>
+        {{#if description}}<p class="show-hero__description">{{description}}</p>{{/if}}
+        {{#if count.posts}}
+        <p class="show-hero__count">{{plural count.posts empty="No episodes yet" singular="1 episode" plural="% episodes"}}</p>
+        {{/if}}
+    </div>
+</section>
+{{else}}
+<section class="show-hero">
+    <div class="show-hero__body">
+        <h1>Show not found</h1>
+    </div>
+</section>
+{{/foreach}}
+{{/get}}
+
+{{!-- Season tabs: only seasons that actually have episodes get a tab --}}
+<nav class="season-tabs" aria-label="Seasons">
+    {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-1" limit="1" as |s1|}}{{#if s1}}<a href="#season-1" class="season-tabs__item">Season 1</a>{{/if}}{{/get}}
+    {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-2" limit="1" as |s2|}}{{#if s2}}<a href="#season-2" class="season-tabs__item">Season 2</a>{{/if}}{{/get}}
+    {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-3" limit="1" as |s3|}}{{#if s3}}<a href="#season-3" class="season-tabs__item">Season 3</a>{{/if}}{{/get}}
+    {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-4" limit="1" as |s4|}}{{#if s4}}<a href="#season-4" class="season-tabs__item">Season 4</a>{{/if}}{{/get}}
+</nav>
+
+{{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-1" limit="50" as |season1|}}
+{{#if season1}}
+<section id="season-1" class="show-season">
+    <h2 class="show-season__heading">Season 1</h2>
+    <div class="show-season__grid">
+        {{#foreach season1}}{{> "episode-card"}}{{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-2" limit="50" as |season2|}}
+{{#if season2}}
+<section id="season-2" class="show-season">
+    <h2 class="show-season__heading">Season 2</h2>
+    <div class="show-season__grid">
+        {{#foreach season2}}{{> "episode-card"}}{{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-3" limit="50" as |season3|}}
+{{#if season3}}
+<section id="season-3" class="show-season">
+    <h2 class="show-season__heading">Season 3</h2>
+    <div class="show-season__grid">
+        {{#foreach season3}}{{> "episode-card"}}{{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-4" limit="50" as |season4|}}
+{{#if season4}}
+<section id="season-4" class="show-season">
+    <h2 class="show-season__heading">Season 4</h2>
+    <div class="show-season__grid">
+        {{#foreach season4}}{{> "episode-card"}}{{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+<div class="page__newsletter">
+    {{> "newsletter-cta" heading="Never miss an episode" variant="page-end"}}
+</div>

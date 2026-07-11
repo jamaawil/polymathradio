@@ -1,0 +1,17 @@
+{{!< default}}
+
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9686; Listen &middot; Shows</p>
+    <h1>Shows</h1>
+    <p>Every show Krino Media runs, one page each — browse by show, then by season.</p>
+</section>
+
+<section class="shows-grid">
+    {{#get "tags" filter="slug:[krino-politics-podcast,on-the-record,breaking-points,the-fact-check,cross-examined]" limit="10" include="count.posts" as |shows|}}
+    {{#foreach shows}}
+    {{> "show-card"}}
+    {{else}}
+    <p class="archive-empty">No shows published yet.</p>
+    {{/foreach}}
+    {{/get}}
+</section>

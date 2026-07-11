@@ -11,11 +11,39 @@ routes:
     template: sw
     content_type: application/javascript
 
+  /listen/shows/:
+    template: index-listen-shows
+
 collections:
   /watch/:
     permalink: /watch/{slug}/
     template: index-watch
     filter: primary_tag:watch
+
+  /listen/shows/krino-politics-podcast/:
+    permalink: /listen/shows/krino-politics-podcast/{slug}/
+    template: index-listen-show-krino-politics-podcast
+    filter: primary_tag:listen+tag:krino-politics-podcast
+
+  /listen/shows/on-the-record/:
+    permalink: /listen/shows/on-the-record/{slug}/
+    template: index-listen-show-on-the-record
+    filter: primary_tag:listen+tag:on-the-record
+
+  /listen/shows/breaking-points/:
+    permalink: /listen/shows/breaking-points/{slug}/
+    template: index-listen-show-breaking-points
+    filter: primary_tag:listen+tag:breaking-points
+
+  /listen/shows/the-fact-check/:
+    permalink: /listen/shows/the-fact-check/{slug}/
+    template: index-listen-show-the-fact-check
+    filter: primary_tag:listen+tag:the-fact-check
+
+  /listen/shows/cross-examined/:
+    permalink: /listen/shows/cross-examined/{slug}/
+    template: index-listen-show-cross-examined
+    filter: primary_tag:listen+tag:cross-examined
 
   /listen/:
     permalink: /listen/{slug}/

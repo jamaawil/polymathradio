@@ -16,20 +16,33 @@
 </section>
 {{/get}}
 
+{{!-- Same lesson as index-read.hbs: the 5 show collections below claim
+      their episodes for their own posts/pagination loop, so this "All
+      episodes" list fetches directly by tag instead of relying on this
+      collection's own (partially emptied) posts array. --}}
 <div class="listen-layout">
     <div class="listen-layout__main">
+        {{#get "posts" filter="primary_tag:listen" limit="20" as |allEpisodes|}}
         <section class="listen-list">
-            {{#foreach posts}}
+            {{#foreach allEpisodes}}
             {{> "listen-row"}}
+            {{else}}
+            <p class="archive-empty">No episodes published yet.</p>
             {{/foreach}}
         </section>
-
-        {{pagination}}
+        {{/get}}
     </div>
 
     <aside class="listen-layout__sidebar">
         <div class="listen-sidebar__box">
             {{> "newsletter-cta" heading="100% on the record" variant="sidebar"}}
+        </div>
+
+        <div class="listen-sidebar__box">
+            <h3>Browse</h3>
+            <ul class="listen-sidebar__topics">
+                <li><a href="{{@site.url}}/listen/shows/">All shows &rarr;</a></li>
+            </ul>
         </div>
 
         <div class="listen-sidebar__box">
