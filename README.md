@@ -32,6 +32,21 @@ Almost everything a publisher needs day-to-day happens in **Ghost Admin**
   automatically — no theme change needed per post.
 - **Edit theme colors, social links, taglines, etc.** → Admin → Settings →
   Design & branding → **Theme settings**. See the full list below.
+- **Change the homepage cover photo** → Admin → Settings → General →
+  **Publication cover**. This is Ghost's native site-level cover image; the
+  homepage hero (`index.hbs`) uses it as a full-bleed background with a dark
+  gradient overlay so the headline stays legible. No cover set = the hero
+  just shows the plain brand background, no broken image, no code change
+  needed either way.
+- **Set a cover image for one episode/video/post** → open the post in the
+  editor → post settings (gear icon, top right) → **Feature image**. This
+  is per-post, separate from the site-level Publication cover above. Watch
+  and Listen posts intentionally *don't* show this image on the post page
+  itself (the embedded video/audio is the hero there instead — see
+  `post.hbs`), but it **does** show as the episode's thumbnail everywhere
+  it's listed as a card: `/listen/`, `/listen/shows/{show}/`, and the
+  homepage spotlight. No Feature image set = the card falls back to the
+  Krino mark rather than rendering blank.
 - **Add/remove members, see subscriber counts** → Admin → Members.
 - **Send the newsletter** → publish a post with "Send to members" enabled,
   or Admin → Members → Newsletter.
@@ -101,7 +116,9 @@ page. Each accordion is a normal Ghost tag lookup for the header (name,
 description, image, count) plus one `{{#get "posts" ...}}` per season
 tag, same idea as `show-page.hbs`. Adding a 6th show to the page-level
 accordion list is one line in `index-listen.hbs`:
-`{{> "show-accordion" showSlug="your-new-slug"}}`.
+`{{> "show-accordion" showSlug="your-new-slug"}}`. Each accordion row
+darkens to a gold tint on hover/focus (name and chevron shift to
+`--gold-dark`) so it's clear it's clickable before you open it.
 
 **Real bug hit and fixed building the accordion**: Ghost's `{{#get}}`
 dynamic-filter substitution — the `{{...}}` you can embed inside a

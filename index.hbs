@@ -1,6 +1,10 @@
 {{!< default}}
 
-<section class="hero">
+{{!-- Homepage cover photo: uses Ghost's native Publication cover image
+      (Admin -> Settings -> General -> Publication cover), so it's editable
+      without touching code. No upload = no background, just the plain
+      brand backdrop underneath. --}}
+<section class="hero{{#if @site.cover_image}} hero--has-cover{{/if}}"{{#if @site.cover_image}} style="background-image: url('{{img_url @site.cover_image size="xl"}}')"{{/if}}>
     <div class="hero__grid">
         <div class="hero__copy">
             <p class="hero__eyebrow">Independent U.S. political media</p>
