@@ -1,0 +1,83 @@
+{{!-- One show, collapsed by default — click to reveal its seasons and
+      episodes inline, no page navigation needed. Native <details>, so it
+      works with zero JS and is keyboard/screen-reader accessible for
+      free. Checks season-1 through season-4 (same ceiling as
+      show-page.hbs); only seasons with real episodes render.
+      Usage: {{> "show-accordion" showSlug="krino-politics-podcast"}} --}}
+{{!-- Ghost's {{#get}} dynamic-filter substitution (the {{...}} inside
+      filter="...") resolves against the immediate call-site context only —
+      it does not support Handlebars parent-context (../) lookups. So every
+      {{#get}} that filters on {{showSlug}} must sit at this partial's root
+      scope, never nested inside the tag {{#foreach}} below. This mirrors
+      the proven-working structure in show-page.hbs. --}}
+<details class="show-accordion">
+    <summary class="show-accordion__summary">
+        {{#get "tags" filter="slug:{{showSlug}}" limit="1" include="count.posts" as |showTag|}}
+        {{#foreach showTag}}
+        <span class="show-accordion__thumb">
+            {{#if feature_image}}
+            <img src="{{img_url feature_image size="s"}}" loading="lazy" alt="{{name}}">
+            {{else}}
+            {{> "krino-mark" size="28px" ring=false mark="var(--gold)"}}
+            {{/if}}
+        </span>
+        <span class="show-accordion__meta">
+            <span class="show-accordion__name">{{name}}</span>
+            {{#if description}}<span class="show-accordion__description">{{description}}</span>{{/if}}
+            {{#if count.posts}}
+            <span class="show-accordion__count">{{plural count.posts empty="No episodes yet" singular="1 episode" plural="% episodes"}}</span>
+            {{/if}}
+        </span>
+        {{/foreach}}
+        {{/get}}
+        <span class="show-accordion__chevron" aria-hidden="true"></span>
+    </summary>
+
+    <div class="show-accordion__content">
+        {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-1" limit="50" as |season1|}}
+        {{#if season1}}
+        <div class="show-accordion__season">
+            <h4>Season 1</h4>
+            <div class="show-accordion__episodes">
+                {{#foreach season1}}{{> "episode-card"}}{{/foreach}}
+            </div>
+        </div>
+        {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-2" limit="50" as |season2|}}
+        {{#if season2}}
+        <div class="show-accordion__season">
+            <h4>Season 2</h4>
+            <div class="show-accordion__episodes">
+                {{#foreach season2}}{{> "episode-card"}}{{/foreach}}
+            </div>
+        </div>
+        {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-3" limit="50" as |season3|}}
+        {{#if season3}}
+        <div class="show-accordion__season">
+            <h4>Season 3</h4>
+            <div class="show-accordion__episodes">
+                {{#foreach season3}}{{> "episode-card"}}{{/foreach}}
+            </div>
+        </div>
+        {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="primary_tag:listen+tag:{{showSlug}}+tag:season-4" limit="50" as |season4|}}
+        {{#if season4}}
+        <div class="show-accordion__season">
+            <h4>Season 4</h4>
+            <div class="show-accordion__episodes">
+                {{#foreach season4}}{{> "episode-card"}}{{/foreach}}
+            </div>
+        </div>
+        {{/if}}
+        {{/get}}
+
+        <a class="show-accordion__full-link" href="{{@site.url}}/listen/shows/{{showSlug}}/">Open the full show page &rarr;</a>
+    </div>
+</details>

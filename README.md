@@ -93,6 +93,37 @@ doesn't support a single dynamic `/listen/shows/{any-slug}/` route, so
 each show needs its own explicit block, same as Read's Essays/Fiction/
 Poems/Book Review sub-sections.
 
+**`/listen/` also embeds all 5 shows inline** as click-to-expand
+accordions (`partials/show-accordion.hbs`, native `<details>`/`<summary>`
+— zero JS, keyboard/screen-reader accessible for free), right above the
+"All episodes" list, so visitors can browse by show without leaving the
+page. Each accordion is a normal Ghost tag lookup for the header (name,
+description, image, count) plus one `{{#get "posts" ...}}` per season
+tag, same idea as `show-page.hbs`. Adding a 6th show to the page-level
+accordion list is one line in `index-listen.hbs`:
+`{{> "show-accordion" showSlug="your-new-slug"}}`.
+
+**Real bug hit and fixed building the accordion**: Ghost's `{{#get}}`
+dynamic-filter substitution — the `{{...}}` you can embed inside a
+`filter="..."` string, e.g. `filter="tag:{{showSlug}}"` — resolves
+against the **immediate call-site context only**. It is not full
+Handlebars path resolution, so the usual parent-context escape hatch
+(`{{../showSlug}}`) does **not** work there, unlike a normal
+`{{../foo}}` reference elsewhere in a template. The first version of
+`show-accordion.hbs` nested its four season `{{#get "posts"
+filter="...{{showSlug}}..."}}` calls inside `{{#foreach showTag}}`
+(to keep the whole `<details>` element self-contained), which silently
+resolved `showSlug` to an empty string — rendering zero seasons and a
+broken `/listen/shows//` link, no error thrown. Switching `{{showSlug}}`
+to `{{../showSlug}}` did **not** fix it, confirming the dynamic-filter
+lookup really doesn't walk contexts. The actual fix: keep every
+`{{#get}}` that filters on `{{showSlug}}` at the partial's **root**
+scope (never nested inside `{{#foreach}}` or any other context-changing
+block) — same structural rule `show-page.hbs` already followed. Worth
+knowing before nesting a `{{#get ... filter="{{param}}"}}` inside any
+block helper in this theme: hoist it to the top level instead of
+reaching for `../`.
+
 **Real bug hit and fixed while seeding this**: when creating a post via
 the Admin API and referencing an *existing* tag by `{"name": slug,
 "slug": slug}`, Ghost matched by name (not slug) and silently created a

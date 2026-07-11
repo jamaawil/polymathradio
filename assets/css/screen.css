@@ -3066,3 +3066,169 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     gap: 1.5rem;
 }
+
+/* ===========================================================
+   Shows accordion — embedded directly on /listen/ (native
+   <details>/<summary>, no JS)
+   =========================================================== */
+
+.listen-shows {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 1rem 3rem !important;
+}
+
+.listen-shows__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.listen-shows__header h2 {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.listen-shows__header a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--gold-dark);
+    white-space: nowrap;
+}
+
+.listen-shows__list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.show-accordion {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+}
+
+.show-accordion[open] {
+    border-color: var(--gold);
+}
+
+.show-accordion__summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    list-style: none;
+}
+
+.show-accordion__summary::-webkit-details-marker {
+    display: none;
+}
+
+.show-accordion__thumb {
+    position: relative;
+    flex-shrink: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+}
+
+.show-accordion__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.show-accordion__meta {
+    flex: 1;
+    min-width: 0;
+    display: grid;
+    gap: 0.15rem;
+}
+
+.show-accordion__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.show-accordion__description {
+    color: var(--muted);
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.show-accordion__count {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+}
+
+.show-accordion__chevron {
+    flex-shrink: 0;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-right: 2px solid var(--caption);
+    border-bottom: 2px solid var(--caption);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    margin-right: 0.3rem;
+}
+
+.show-accordion[open] .show-accordion__chevron {
+    transform: rotate(-135deg);
+}
+
+.show-accordion__content {
+    padding: 0 1.25rem 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.show-accordion__season {
+    padding-top: 1.25rem;
+}
+
+.show-accordion__season h4 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--caption);
+    margin: 0 0 0.9rem;
+}
+
+.show-accordion__episodes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 1.25rem;
+}
+
+.show-accordion__full-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--gold-dark);
+}
+
+@media (max-width: 500px) {
+    .show-accordion__description {
+        display: none;
+    }
+}

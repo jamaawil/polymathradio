@@ -16,6 +16,20 @@
 </section>
 {{/get}}
 
+<section class="listen-shows">
+    <div class="listen-shows__header">
+        <h2>Shows</h2>
+        <a href="{{@site.url}}/listen/shows/">Open the shows index &rarr;</a>
+    </div>
+    <div class="listen-shows__list">
+        {{> "show-accordion" showSlug="krino-politics-podcast"}}
+        {{> "show-accordion" showSlug="on-the-record"}}
+        {{> "show-accordion" showSlug="breaking-points"}}
+        {{> "show-accordion" showSlug="the-fact-check"}}
+        {{> "show-accordion" showSlug="cross-examined"}}
+    </div>
+</section>
+
 {{!-- Same lesson as index-read.hbs: the 5 show collections below claim
       their episodes for their own posts/pagination loop, so this "All
       episodes" list fetches directly by tag instead of relying on this
