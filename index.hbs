@@ -24,7 +24,7 @@
     </div>
 </section>
 
-<section class="tri-link">
+<section class="tri-link tri-link--six">
     <a class="tri-link__item" href="{{@site.url}}/watch/">
         <p class="tri-link__eyebrow">&#9656; Watch</p>
         <h3>YouTube</h3>
@@ -45,6 +45,16 @@
         <h3>Certificate Programs</h3>
         <p>Guided skills from the Krino newsroom</p>
     </a>
+    <a class="tri-link__item" href="{{@site.url}}/shop/">
+        <p class="tri-link__eyebrow">&#9670; Shop</p>
+        <h3>Reports &amp; Merch</h3>
+        <p>Research, apparel, certificates</p>
+    </a>
+    <a class="tri-link__item" href="{{@site.url}}/stream/">
+        <p class="tri-link__eyebrow">&#9670; Stream</p>
+        <h3>Live &amp; Breaking</h3>
+        <p>On-air now &amp; same-day updates</p>
+    </a>
 </section>
 
 {{#get "posts" filter="tag:breakdown" limit="1" as |breakdown|}}
@@ -53,6 +63,38 @@
     {{#foreach breakdown}}
     {{> "breakdown-card"}}
     {{/foreach}}
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:watch" limit="3" as |watchPosts|}}
+{{#if watchPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Latest on Watch</h2>
+        <a href="{{@site.url}}/watch/">All videos &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach watchPosts}}
+        {{> "watch-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:listen" limit="3" as |listenPosts|}}
+{{#if listenPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Latest episodes</h2>
+        <a href="{{@site.url}}/listen/">All shows &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach listenPosts}}
+        {{> "episode-card"}}
+        {{/foreach}}
+    </div>
 </section>
 {{/if}}
 {{/get}}
@@ -67,6 +109,54 @@
     <div class="article-list__items">
         {{#foreach articles}}
         {{> "article-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:learn" limit="3" as |learnPosts|}}
+{{#if learnPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Certificate programs</h2>
+        <a href="{{@site.url}}/learn/">All programs &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach learnPosts}}
+        {{> "learn-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:shop" limit="3" as |shopPosts|}}
+{{#if shopPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>From the Shop</h2>
+        <a href="{{@site.url}}/shop/">All products &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach shopPosts}}
+        {{> "product-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{#get "posts" filter="primary_tag:stream" limit="3" as |streamPosts|}}
+{{#if streamPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Live &amp; breaking</h2>
+        <a href="{{@site.url}}/stream/">All updates &rarr;</a>
+    </div>
+    <div class="home-breaking-list">
+        {{#foreach streamPosts}}
+        {{> "breaking-row"}}
         {{/foreach}}
     </div>
 </section>

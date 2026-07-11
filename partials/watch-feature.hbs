@@ -10,6 +10,10 @@
             src="{{img_url feature_image size="l"}}"
             loading="lazy"
             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+        {{else}}
+        <span class="watch-feature__cover-fallback">
+            {{> "krino-mark" size="56px" ring=false mark="var(--gold)"}}
+        </span>
         {{/if}}
         <span class="watch-feature__play" aria-hidden="true"></span>
     </a>

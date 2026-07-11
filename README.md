@@ -77,6 +77,38 @@ This is set in `routes.yaml` and doesn't need code changes to use:
 Also meaningful: tag it `breakdown` to make a post eligible for the
 homepage's "The Breakdown" spotlight card.
 
+## Homepage anatomy (`index.hbs`)
+
+The homepage pulls live content from all six sections, not just Read — each
+row below is its own `{{#get "posts" filter="primary_tag:X" limit="3"}}`
+query and self-hides (`{{#if}}`) if that section has no posts yet, so an
+empty pillar never leaves a blank gap:
+
+| Section (top to bottom) | Query | Card partial |
+|---|---|---|
+| Hero | 1 latest Watch/Listen post | `episode-spotlight` |
+| 6-tile nav | static links to all 6 sections | — |
+| The Breakdown | 1 post tagged `breakdown` | `breakdown-card` |
+| Latest on Watch | 3 latest `primary_tag:watch` | `watch-card` |
+| Latest episodes | 3 latest `primary_tag:listen` | `episode-card` |
+| Latest from The Record | 3 latest `primary_tag:read` | `article-card` |
+| Certificate programs | 3 latest `primary_tag:learn` | `learn-card` |
+| From the Shop | 3 latest `primary_tag:shop` | `product-card` |
+| Live & breaking | 3 latest `primary_tag:stream` | `breaking-row` |
+| Newsletter | — | `newsletter-cta` |
+
+The 6-tile nav (`.tri-link--six`, a modifier on the original 4-tile
+`.tri-link` component) covers Watch/Listen/Read/Learn/Shop/Stream — the
+original 4-tile version and the 3-tile `.tri-link--compact` (used on
+`/advertise/`) are untouched, since other pages depend on their exact
+item counts for the border/grid math.
+
+**Card thumbnails all have a fallback now**: `watch-card`, `watch-feature`,
+`episode-card`, `learn-card`, and `product-card` fall back to the Krino
+mark when a post has no Feature image set, so a homepage with mixed
+image/no-image content never shows a blank gap where a thumbnail should
+be — same pattern as `show-card`.
+
 ## Listen → Shows → Seasons
 
 Each **show** is a real Ghost tag (not a separate content type) — its

@@ -566,6 +566,67 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     margin: 0;
 }
 
+.tri-link__item:hover {
+    background: rgba(200, 151, 31, 0.08);
+}
+
+.tri-link__item:hover h3 {
+    color: var(--gold-dark);
+}
+
+/* ---------- six-item variant (homepage: Watch/Listen/Read/Learn/Shop/Stream) ---------- */
+
+.tri-link--six {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tri-link--six .tri-link__item {
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+}
+
+.tri-link--six .tri-link__item:nth-child(3n) {
+    border-right: none;
+}
+
+.tri-link--six .tri-link__item:nth-child(-n+3) {
+    border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+    .tri-link--six {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tri-link--six .tri-link__item {
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .tri-link--six .tri-link__item:nth-child(even) {
+        border-right: none;
+    }
+
+    .tri-link--six .tri-link__item:nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .tri-link--six {
+        grid-template-columns: 1fr;
+    }
+
+    .tri-link--six .tri-link__item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .tri-link--six .tri-link__item:last-child {
+        border-bottom: none;
+    }
+}
+
 .tri-link--compact {
     border-top: none;
     border-bottom: 1px solid var(--gold);
@@ -1467,6 +1528,13 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     object-fit: cover;
 }
 
+.watch-feature__cover-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
 .watch-feature__play {
     position: absolute;
     inset: 0;
@@ -1518,6 +1586,13 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.watch-card__cover-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
 }
 
 .watch-card__play {
@@ -2516,6 +2591,14 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 
 .breaking-row:first-child {
     padding-top: 0;
+}
+
+.breaking-row:last-child {
+    border-bottom: none;
+}
+
+.home-breaking-list .breaking-row:last-child {
+    padding-bottom: 0;
 }
 
 .breaking-row__time {
