@@ -18,6 +18,34 @@ repo with a standalone React/Vite build of a Gumroad-style storefront —
 it's dormant reference code, not deployed or wired into the theme's
 build; see `storefront/README.md` before assuming it's live.
 
+## First-time setup after installing this theme
+
+Two steps that are easy to miss because Ghost doesn't do them automatically
+when you activate the theme — skip either one and the site looks broken
+even though the theme itself is fine:
+
+1. **Upload `routes.yaml` separately.** Ghost never reads `routes.yaml`
+   from an installed theme, even though this theme ships one at its root —
+   it's a site-level setting, not a theme file, and has to be applied on
+   its own. Without it, every custom route (`/watch/`, `/listen/`, `/read/`,
+   `/learn/`, `/shop/`, `/stream/`, `/latest/`, all their sub-collections)
+   **404s**, because none of them exist as far as Ghost is concerned. Fix:
+   Admin → **Settings → Advanced → Labs** → **Routes** card → **Upload
+   routes YAML** → select the `routes.yaml` file from the theme package.
+   Applies immediately, no restart needed. If you edit `routes.yaml` later
+   for any reason (adding a 6th Listen show, etc.), you have to re-upload
+   it here again — editing the file alone does nothing.
+
+2. **Tag your content, or the homepage looks empty.** Every homepage
+   section (the bento grid, Most Popular, Listen, The Breakdown, Watch,
+   The Record) filters by a specific tag and self-hides if nothing matches
+   — that's intentional, not a bug, but it means a freshly installed site
+   with untagged posts will look nearly blank apart from the hero and the
+   unfiltered "Recent posts" feed. To populate a section, give a post one
+   of these as its **primary tag**: `watch`, `listen`, `read`, `learn`,
+   `shop`, `stream`. See the routing table and the Internal tags table
+   below for the optional `breakdown` and `#popular` tags too.
+
 ## Everyday editing (no code required)
 
 Almost everything a publisher needs day-to-day happens in **Ghost Admin**
