@@ -24,6 +24,12 @@
     </div>
 </section>
 
+<div class="section-divider" aria-hidden="true">
+    <span class="section-divider__line"></span>
+    <span class="section-divider__mark">{{> "krino-mark" size="20px" ring=false mark="var(--gold)"}}</span>
+    <span class="section-divider__line"></span>
+</div>
+
 {{#get "posts" filter="tag:breakdown" limit="1" as |breakdown|}}
 {{#if breakdown}}
 <section class="breakdown-section">

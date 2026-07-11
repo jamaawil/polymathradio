@@ -1,23 +1,45 @@
-{{!-- "The Breakdown" — the recurring clip/headline format from the brand
-      guidelines: dark ink card, gold badge + eyebrow, gold rule, Fraunces
-      headline, logo lockup footer. Expects to be inside a post loop. --}}
+{{!-- "The Breakdown" — the recurring on-air video segment, styled as a
+      broadcast frame: feature_image (or the ink/arc placeholder when
+      there's no thumbnail yet) fills a 16:9 frame, a channel "bug" badge
+      sits top-left, a play button centers the frame, and a lower-third
+      caption bar carries the headline + brand lockup, like a cable-news
+      chyron. Expects to be inside a post loop. --}}
 <article class="breakdown-card">
-    <div class="breakdown-card__watermark" aria-hidden="true">
-        <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none">
-            <circle cx="100" cy="100" r="42" stroke="var(--gold)" stroke-width="1.4" opacity="0.5"></circle>
-            <circle cx="100" cy="100" r="70" stroke="var(--gold)" stroke-width="1.4" opacity="0.3"></circle>
-            <circle cx="100" cy="100" r="98" stroke="var(--gold)" stroke-width="1.4" opacity="0.16"></circle>
-        </svg>
-    </div>
-    <a class="breakdown-card__link" href="{{url}}">
-        <div class="breakdown-card__badge">
+    <a class="breakdown-card__frame" href="{{url}}">
+        {{#if feature_image}}
+        <img
+            class="breakdown-card__image"
+            srcset="{{img_url feature_image size="m"}} 1000w,
+                    {{img_url feature_image size="l"}} 1600w"
+            sizes="100vw"
+            src="{{img_url feature_image size="l"}}"
+            loading="lazy"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+        {{else}}
+        <div class="breakdown-card__watermark" aria-hidden="true">
+            <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none">
+                <circle cx="100" cy="100" r="42" stroke="var(--gold)" stroke-width="1.4" opacity="0.5"></circle>
+                <circle cx="100" cy="100" r="70" stroke="var(--gold)" stroke-width="1.4" opacity="0.3"></circle>
+                <circle cx="100" cy="100" r="98" stroke="var(--gold)" stroke-width="1.4" opacity="0.16"></circle>
+            </svg>
+        </div>
+        {{/if}}
+
+        <div class="breakdown-card__bug">
+            <span class="breakdown-card__on-air" aria-hidden="true"></span>
             <span class="breakdown-card__pill">The Breakdown</span>
         </div>
-        <div class="breakdown-card__rule"></div>
-        <h3 class="breakdown-card__title">{{title}}</h3>
-        <div class="breakdown-card__brand">
-            <span class="breakdown-card__mark">{{> "krino-mark" size="24px" ring=false mark="var(--bone)"}}</span>
-            <span>KRINO MEDIA</span>
+
+        <span class="breakdown-card__play" aria-hidden="true"></span>
+
+        <div class="breakdown-card__caption">
+            <div class="breakdown-card__rule"></div>
+            <h3 class="breakdown-card__title">{{title}}</h3>
+            <div class="breakdown-card__brand">
+                <span class="breakdown-card__mark">{{> "krino-mark" size="22px" ring=false mark="var(--bone)"}}</span>
+                <span>KRINO MEDIA</span>
+                <span class="breakdown-card__cta">Watch now &rarr;</span>
+            </div>
         </div>
     </a>
 </article>

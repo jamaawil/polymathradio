@@ -99,13 +99,25 @@ empty pillar never leaves a blank gap:
 There's no separate tile-grid nav on the homepage — the header
 (`site-header.hbs`) already links to all six sections, so a second set of
 tiles repeating the same links right below the hero was redundant and got
-dropped.
+dropped. In its place is a small `.section-divider` (a thin rule with the
+Krino mark centered on it) marking the end of the hero before The
+Breakdown — purely decorative rhythm, not navigation.
 
 **Card thumbnails all have a fallback now**: `watch-card`, `watch-feature`,
 `episode-card`, `learn-card`, and `product-card` fall back to the Krino
 mark when a post has no Feature image set, so a homepage with mixed
 image/no-image content never shows a blank gap where a thumbnail should
 be — same pattern as `show-card`.
+
+**The Breakdown is styled as a broadcast frame**, not a text card:
+`feature_image` (if the post has one) fills a 16:9 video frame — if not,
+it falls back to the original ink/gold-arc placeholder rather than going
+blank. On top of that: a gold "on-air" pill with a pulsing dot (top-left,
+like a channel bug), a centered play button, and a lower-third caption
+bar (gradient scrim + gold rule + headline + Krino lockup + "Watch now")
+like a cable-news chyron. Since a `breakdown`-tagged post is always also
+`watch` or `listen` (it's a real published episode, just double-tagged
+for the homepage spotlight), it always has somewhere real to link to.
 
 ## Listen → Shows → Seasons
 

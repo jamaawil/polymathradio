@@ -609,7 +609,38 @@ html[data-theme="dark"] .theme-toggle__icon::before {
 }
 
 /* ===========================================================
-   Breakdown card
+   Section divider — marks where the homepage's hero ends, in place
+   of the removed nav-tile block (the header nav already covers those
+   links, so this is decorative rhythm, not navigation)
+   =========================================================== */
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    max-width: var(--content-narrow);
+    margin: 0 auto;
+    padding: 0.5rem 1.5rem 2.5rem;
+}
+
+.section-divider__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 50%, transparent);
+}
+
+.section-divider__mark {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0.8;
+}
+
+/* ===========================================================
+   Breakdown card — styled as an on-air broadcast frame: video
+   thumbnail (or the ink/arc placeholder when there's no image yet),
+   a channel "bug" badge, a play button, and a lower-third caption
+   bar for the headline, like a cable-news chyron
    =========================================================== */
 
 .breakdown-section {
@@ -623,7 +654,24 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     background: var(--ink);
     border-radius: 8px;
     overflow: hidden;
-    padding: clamp(1.75rem, 4vw, 2.75rem);
+    aspect-ratio: 16 / 9;
+}
+
+.breakdown-card__frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--bone);
+}
+
+.breakdown-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .breakdown-card__watermark {
@@ -631,43 +679,101 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     left: 50%;
     bottom: -30%;
     transform: translateX(-50%);
-    width: 90%;
+    width: 60%;
     aspect-ratio: 1;
     opacity: 0.6;
 }
 
-.breakdown-card__link {
-    position: relative;
-    display: block;
-    text-decoration: none;
-    color: var(--bone);
+.breakdown-card__bug {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.breakdown-card__on-air {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: breakdown-pulse 2s ease-in-out infinite;
+}
+
+@keyframes breakdown-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 .breakdown-card__pill {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
     border: 1px solid var(--gold);
     border-radius: 3px;
     padding: 0.3em 0.7em;
+    background: rgba(22, 20, 15, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+.breakdown-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.92;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.breakdown-card__play::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 56%;
+    border-style: solid;
+    border-width: 0.65rem 0 0.65rem 1.05rem;
+    border-color: transparent transparent transparent var(--ink);
+    transform: translate(-50%, -50%);
+}
+
+.breakdown-card__frame:hover .breakdown-card__play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.breakdown-card__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    background: linear-gradient(180deg, rgba(22, 20, 15, 0) 0%, rgba(22, 20, 15, 0.55) 40%, rgba(22, 20, 15, 0.92) 100%);
 }
 
 .breakdown-card__rule {
     width: 2.9rem;
     height: 3px;
     background: var(--gold);
-    margin: 1rem 0;
+    margin: 0 0 0.9rem;
 }
 
 .breakdown-card__title {
     color: var(--bone);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    line-height: 1.05;
-    max-width: 80%;
-    margin: 0 0 1.75rem;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    line-height: 1.08;
+    max-width: 34rem;
+    margin: 0 0 1rem;
 }
 
 .breakdown-card__brand {
@@ -675,9 +781,21 @@ html[data-theme="dark"] .theme-toggle__icon::before {
     align-items: center;
     gap: 0.6rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
     color: var(--bone);
+}
+
+.breakdown-card__cta {
+    margin-left: auto;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+@media (max-width: 560px) {
+    .breakdown-card__brand .breakdown-card__cta {
+        display: none;
+    }
 }
 
 /* ===========================================================
