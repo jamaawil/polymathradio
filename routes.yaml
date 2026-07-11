@@ -14,6 +14,10 @@ routes:
   /listen/shows/:
     template: index-listen-shows
 
+  /latest/:
+    controller: channel
+    template: index-latest
+
 collections:
   /watch/:
     permalink: /watch/{slug}/

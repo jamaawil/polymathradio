@@ -11,7 +11,7 @@
     </a>
     {{/if}}
     <div class="article-card__body">
-        <p class="article-card__eyebrow">Analysis &middot; The Record</p>
+        <p class="article-card__eyebrow">{{#if primary_tag}}{{primary_tag.name}}{{else}}Krino Media{{/if}}</p>
         <h3 class="article-card__title"><a href="{{url}}">{{title}}</a></h3>
         <p class="article-card__excerpt">{{excerpt words="24"}}</p>
         <div class="article-card__meta">

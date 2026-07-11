@@ -1,0 +1,10 @@
+{{!-- Flat full-width band: heading + a button that opens Ghost's native
+      Portal signup modal (same data-portal pattern as the header's
+      Subscribe button) -- no inline email field needed here, that lives
+      in the bigger newsletter-cta block near the footer. --}}
+{{#unless @member}}
+<section class="newsletter-band">
+    <h2>Get unfiltered reporting in your inbox.</h2>
+    <a href="#" data-portal="signup" class="btn btn--gold">Subscribe</a>
+</section>
+{{/unless}}

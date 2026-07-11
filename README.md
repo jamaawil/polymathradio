@@ -79,35 +79,88 @@ homepage's "The Breakdown" spotlight card.
 
 ## Homepage anatomy (`index.hbs`)
 
-The homepage pulls live content from all six sections, not just Read — each
-row below is its own `{{#get "posts" filter="primary_tag:X" limit="3"}}`
-query and self-hides (`{{#if}}`) if that section has no posts yet, so an
-empty pillar never leaves a blank gap:
+Rebuilt around an editorial-magazine layout (bento top-story grid, curated
+Most Popular row, per-pillar franchise sections, topic spotlights with a
+big feature + story list, a general Recent posts feed) instead of a flat
+stack of "latest 3 from each pillar" rows. Every section below is its own
+`{{#get}}` query and self-hides (`{{#if}}`) if there's nothing to show, so
+an empty pillar never leaves a blank gap:
 
-| Section (top to bottom) | Query | Card partial |
+| Section (top to bottom) | Query | Partial(s) |
 |---|---|---|
-| Hero | 1 latest Watch/Listen post | `episode-spotlight` |
-| The Breakdown | 1 post tagged `breakdown` | `breakdown-card` |
-| Latest on Watch | 3 latest `primary_tag:watch` | `watch-card` |
-| Latest episodes | 3 latest `primary_tag:listen` | `episode-card` |
-| Latest from The Record | 3 latest `primary_tag:read` | `article-card` |
-| Certificate programs | 3 latest `primary_tag:learn` | `learn-card` |
-| From the Shop | 3 latest `primary_tag:shop` | `product-card` |
-| Live & breaking | 3 latest `primary_tag:stream` | `breaking-row` |
-| Newsletter | — | `newsletter-cta` |
+| Hero | static copy (tagline + CTAs) | — |
+| Bento grid | 1 each: Read (center), Watch, Listen, Stream, Learn | `bento-feature`, `bento-side-card` |
+| Most Popular | 4 posts tagged `#popular` | `popular-row-item` |
+| Newsletter band | — | `newsletter-band` |
+| Listen | 4 latest `primary_tag:listen` | `episode-card` |
+| The Breakdown | 1 post tagged `breakdown` + 4 more (any pillar) | `breakdown-card`, `story-row` |
+| Recent posts | 8 latest, no filter, any pillar | `article-card` |
+| Watch | 4 latest `primary_tag:watch` | `watch-card` |
+| The Record | 1 + 4 latest `primary_tag:read` | `spotlight-feature`, `story-row` |
+| Newsletter (full) | — | `newsletter-cta` |
+| Brand sendoff | — | `brand-sendoff` |
 
 There's no separate tile-grid nav on the homepage — the header
-(`site-header.hbs`) already links to all six sections, so a second set of
-tiles repeating the same links right below the hero was redundant and got
+(`site-header.hbs`) already links to all six sections, so a block of tiles
+repeating the same links right below the hero was redundant and got
 dropped. In its place is a small `.section-divider` (a thin rule with the
-Krino mark centered on it) marking the end of the hero before The
-Breakdown — purely decorative rhythm, not navigation.
+Krino mark centered on it) marking the end of the hero before the bento
+grid — purely decorative rhythm, not navigation.
 
-**Card thumbnails all have a fallback now**: `watch-card`, `watch-feature`,
-`episode-card`, `learn-card`, and `product-card` fall back to the Krino
-mark when a post has no Feature image set, so a homepage with mixed
-image/no-image content never shows a blank gap where a thumbnail should
-be — same pattern as `show-card`.
+**The bento grid** is the real front page: 1 big Read feature
+(`bento-feature`) centered, flanked by Watch+Listen on the left and
+Stream+Learn on the right (`bento-side-card`, 4 of them). Deliberately
+excludes Shop (commerce, not editorial) — same curatorial logic as the
+reference layout this was modeled on, which doesn't give every vertical
+equal homepage real estate either. `bento-side-card` shows a play-button
+overlay only for Watch/Listen posts, since those are the only pillars
+with a real video/audio payload — no fabricated "duration" badges, since
+this Ghost install doesn't track episode length as data.
+
+**Most Popular is curated, not ranked** — this Ghost install has no
+page-view tracking, so "popular" means editor's pick: tag a post
+`#popular` in Admin (internal tag, same `#`-prefix convention as
+`#lesson`/`#dropcap`, hidden from public tag archives) and it's eligible.
+4 posts ship tagged this way, one per pillar (Watch/Listen/Read/Learn).
+
+**Two capture points, not one**: `newsletter-band` (flat, heading + a
+`data-portal="signup"` button that opens Ghost's native Portal modal, no
+inline form) sits right after the bento grid; the fuller `newsletter-cta`
+block (heading + description + inline email field) stays at the very
+bottom, same as before. Multiple low-friction touchpoints, matching this
+theme's existing email-capture philosophy.
+
+**Topic spotlights** (The Breakdown, The Record) share one structural
+pattern: a big feature on the left (`breakdown-card` or
+`spotlight-feature`) and 4 more stories in a `story-row` list on the
+right. Getting the "big feature + list of everything else" pairing right
+without duplicating a post across both sides took two fixes:
+- The Breakdown's list uses `filter="primary_tag:read+tag:-breakdown"`-style
+  NQL negation (`tag:-breakdown`, **not** `-tag:breakdown` — the `-`
+  belongs directly on the value, this theme got it backwards on the first
+  pass and the list silently came back empty) to exclude the featured
+  post's own tag.
+- The Record's list needed the *specific* featured post excluded, not a
+  tag. `{{#get}}`'s `skip` param looked like the fix but doesn't guarantee
+  a stable second query without an explicit tiebreaker, and even with
+  `order="published_at desc, id desc"` on both queries it still didn't
+  reliably line up. The robust fix: query the feature post first, then
+  filter the list query on `id:-{{id}}` (referencing the feature post's
+  own `id`, in scope directly inside the `{{#foreach}}` — no `../` needed,
+  same rule as the accordion bug from the Shows feature) to exclude that
+  exact post by identity instead of by position.
+
+**Recent posts** is the one section with no `primary_tag` filter at all —
+genuinely everything, newest first, any pillar. Its "See all" link goes
+to `/latest/`, a new native Ghost **channel** route (`routes.yaml`,
+`controller: channel`) with real `{{pagination}}` — not a `{{#get}}`
+block, since this needed actual paged depth the curated sections don't.
+
+**Card thumbnails all have a fallback**: `watch-card`, `watch-feature`,
+`episode-card`, `learn-card`, `product-card`, and all the new bento/
+popular/spotlight partials fall back to the Krino mark when a post has no
+Feature image set, so mixed image/no-image content never shows a blank
+gap where a thumbnail should be — same pattern as `show-card`.
 
 **The Breakdown is styled as a broadcast frame**, not a text card:
 `feature_image` (if the post has one) fills a 16:9 video frame — if not,
@@ -323,6 +376,7 @@ gives them a public `/tag/` page:
 | `#dropcap` | Large decorative first letter on the post's opening paragraph |
 | `#vertical` | Forces embedded video/audio to a 9:16 frame (Shorts/Reels-style posts) |
 | `#lesson` | Turns a Learn post into a course lesson: adds a "Mark as complete" button and prev/next lesson nav (scoped to same primary tag — see Learning pillar below) |
+| `#popular` | Makes a post eligible for the homepage's "Most Popular" row (editor's pick — this Ghost install has no page-view tracking) |
 | `breakdown` (no `#`, public tag) | Makes a post eligible for the homepage's "The Breakdown" spotlight |
 
 ## Video pillar (Watch)

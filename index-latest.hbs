@@ -1,0 +1,19 @@
+{{!< default}}
+
+{{!-- Everything, across every pillar, newest first -- what the homepage's
+      "Recent posts" section's "See all" link points to. Native channel
+      route (routes.yaml), so posts/pagination here are Ghost's real
+      site-wide archive, not a {{#get}} query. --}}
+<section class="collection-header">
+    <p class="collection-header__eyebrow">&#9670; Krino Media</p>
+    <h1>Latest</h1>
+    <p>Everything we've published, newest first &mdash; every pillar, one feed.</p>
+</section>
+
+<section class="article-grid">
+    {{#foreach posts}}
+    {{> "article-card"}}
+    {{/foreach}}
+</section>
+
+{{pagination}}

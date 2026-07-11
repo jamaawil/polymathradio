@@ -15,12 +15,6 @@
                 <a class="btn btn--outline" href="{{@site.url}}/about/">How we work</a>
             </div>
         </div>
-
-        {{#get "posts" filter="tag:[watch,listen]" limit="1" as |featured|}}
-        {{#foreach featured}}
-        {{> "episode-spotlight"}}
-        {{/foreach}}
-        {{/get}}
     </div>
 </section>
 
@@ -30,21 +24,123 @@
     <span class="section-divider__line"></span>
 </div>
 
-{{#get "posts" filter="tag:breakdown" limit="1" as |breakdown|}}
-{{#if breakdown}}
-<section class="breakdown-section">
-    {{#foreach breakdown}}
-    {{> "breakdown-card"}}
-    {{/foreach}}
+{{!-- Top-story bento grid: 1 big Read feature centered, flanked by
+      Watch+Listen on the left and Stream+Learn on the right -- a real
+      cross-pillar front page, not just one pinned story. Each slot is
+      its own {{#get}} so a pillar with zero posts yet just leaves that
+      one cell empty rather than breaking the grid. --}}
+<section class="bento-grid">
+    <div class="bento-grid__side">
+        {{#get "posts" filter="primary_tag:watch" limit="1" as |bentoWatch|}}
+        {{#foreach bentoWatch}}{{> "bento-side-card"}}{{/foreach}}
+        {{/get}}
+        {{#get "posts" filter="primary_tag:listen" limit="1" as |bentoListen|}}
+        {{#foreach bentoListen}}{{> "bento-side-card"}}{{/foreach}}
+        {{/get}}
+    </div>
+
+    {{#get "posts" filter="primary_tag:read" limit="1" as |bentoFeature|}}
+    {{#foreach bentoFeature}}{{> "bento-feature"}}{{/foreach}}
+    {{/get}}
+
+    <div class="bento-grid__side">
+        {{#get "posts" filter="primary_tag:stream" limit="1" as |bentoStream|}}
+        {{#foreach bentoStream}}{{> "bento-side-card"}}{{/foreach}}
+        {{/get}}
+        {{#get "posts" filter="primary_tag:learn" limit="1" as |bentoLearn|}}
+        {{#foreach bentoLearn}}{{> "bento-side-card"}}{{/foreach}}
+        {{/get}}
+    </div>
+</section>
+
+{{!-- Most Popular: curated, not view-count-ranked -- this Ghost install
+      doesn't track page views, so "popular" means editor's pick, opt in
+      by tagging a post #popular in Admin (same pattern as #breakdown). --}}
+{{#get "posts" filter="tag:hash-popular" limit="4" as |popularPosts|}}
+{{#if popularPosts}}
+<section class="popular-section">
+    <div class="article-list__header">
+        <h2>Most Popular</h2>
+    </div>
+    <div class="popular-section__items">
+        {{#foreach popularPosts}}
+        {{> "popular-row-item"}}
+        {{/foreach}}
+    </div>
 </section>
 {{/if}}
 {{/get}}
 
-{{#get "posts" filter="primary_tag:watch" limit="3" as |watchPosts|}}
+{{> "newsletter-band"}}
+
+{{!-- Listen franchise section: individual shows only have 1 seeded
+      episode each so far (not enough for a 4-up grid), so this pulls
+      from the whole Listen pillar, which already has real depth. --}}
+{{#get "posts" filter="primary_tag:listen" limit="4" as |listenPosts|}}
+{{#if listenPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Listen</h2>
+        <a href="{{@site.url}}/listen/">All episodes &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach listenPosts}}
+        {{> "episode-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{!-- The Breakdown, as a spotlight section: the broadcast-style feature
+      on the left, 4 more recent cross-pillar stories on the right. --}}
+{{#get "posts" filter="tag:breakdown" limit="1" as |breakdownFeature|}}
+{{#if breakdownFeature}}
+<section class="spotlight-section">
+    <div class="article-list__header">
+        <h2>The Breakdown</h2>
+    </div>
+    <div class="spotlight-section__grid">
+        {{#foreach breakdownFeature}}
+        {{> "breakdown-card"}}
+        {{/foreach}}
+        <div class="spotlight-section__list">
+            {{#get "posts" filter="tag:-breakdown" limit="4" as |breakdownMore|}}
+            {{#foreach breakdownMore}}
+            {{> "story-row"}}
+            {{/foreach}}
+            {{/get}}
+        </div>
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{!-- Recent posts: everything, across every pillar, no filter -- the
+      general front-page feed. "See all" goes to /latest/, a native
+      Ghost channel route (real pagination, not a curated block). --}}
+{{#get "posts" limit="8" as |recentPosts|}}
+{{#if recentPosts}}
+<section class="article-list">
+    <div class="article-list__header">
+        <h2>Recent posts</h2>
+        <a href="{{@site.url}}/latest/">See all &rarr;</a>
+    </div>
+    <div class="article-list__items">
+        {{#foreach recentPosts}}
+        {{> "article-card"}}
+        {{/foreach}}
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{!-- Watch franchise section. --}}
+{{#get "posts" filter="primary_tag:watch" limit="4" as |watchPosts|}}
 {{#if watchPosts}}
 <section class="article-list">
     <div class="article-list__header">
-        <h2>Latest on Watch</h2>
+        <h2>Watch</h2>
         <a href="{{@site.url}}/watch/">All videos &rarr;</a>
     </div>
     <div class="article-list__items">
@@ -56,80 +152,25 @@
 {{/if}}
 {{/get}}
 
-{{#get "posts" filter="primary_tag:listen" limit="3" as |listenPosts|}}
-{{#if listenPosts}}
-<section class="article-list">
+{{!-- The Record, as a spotlight section: latest Read piece as the big
+      feature, next 4 Read pieces as the list. --}}
+{{#get "posts" filter="primary_tag:read" limit="1" order="published_at desc, id desc" as |recordFeature|}}
+{{#if recordFeature}}
+<section class="spotlight-section">
     <div class="article-list__header">
-        <h2>Latest episodes</h2>
-        <a href="{{@site.url}}/listen/">All shows &rarr;</a>
-    </div>
-    <div class="article-list__items">
-        {{#foreach listenPosts}}
-        {{> "episode-card"}}
-        {{/foreach}}
-    </div>
-</section>
-{{/if}}
-{{/get}}
-
-{{#get "posts" filter="primary_tag:read" limit="3" as |articles|}}
-{{#if articles}}
-<section class="article-list">
-    <div class="article-list__header">
-        <h2>Latest from The Record</h2>
+        <h2>The Record</h2>
         <a href="{{@site.url}}/read/">All analysis &rarr;</a>
     </div>
-    <div class="article-list__items">
-        {{#foreach articles}}
-        {{> "article-card"}}
-        {{/foreach}}
-    </div>
-</section>
-{{/if}}
-{{/get}}
-
-{{#get "posts" filter="primary_tag:learn" limit="3" as |learnPosts|}}
-{{#if learnPosts}}
-<section class="article-list">
-    <div class="article-list__header">
-        <h2>Certificate programs</h2>
-        <a href="{{@site.url}}/learn/">All programs &rarr;</a>
-    </div>
-    <div class="article-list__items">
-        {{#foreach learnPosts}}
-        {{> "learn-card"}}
-        {{/foreach}}
-    </div>
-</section>
-{{/if}}
-{{/get}}
-
-{{#get "posts" filter="primary_tag:shop" limit="3" as |shopPosts|}}
-{{#if shopPosts}}
-<section class="article-list">
-    <div class="article-list__header">
-        <h2>From the Shop</h2>
-        <a href="{{@site.url}}/shop/">All products &rarr;</a>
-    </div>
-    <div class="article-list__items">
-        {{#foreach shopPosts}}
-        {{> "product-card"}}
-        {{/foreach}}
-    </div>
-</section>
-{{/if}}
-{{/get}}
-
-{{#get "posts" filter="primary_tag:stream" limit="3" as |streamPosts|}}
-{{#if streamPosts}}
-<section class="article-list">
-    <div class="article-list__header">
-        <h2>Live &amp; breaking</h2>
-        <a href="{{@site.url}}/stream/">All updates &rarr;</a>
-    </div>
-    <div class="home-breaking-list">
-        {{#foreach streamPosts}}
-        {{> "breaking-row"}}
+    <div class="spotlight-section__grid">
+        {{#foreach recordFeature}}
+        {{> "spotlight-feature"}}
+        {{#get "posts" filter="primary_tag:read+id:-{{id}}" limit="4" order="published_at desc, id desc" as |recordMore|}}
+        <div class="spotlight-section__list">
+            {{#foreach recordMore}}
+            {{> "story-row"}}
+            {{/foreach}}
+        </div>
+        {{/get}}
         {{/foreach}}
     </div>
 </section>
@@ -139,3 +180,5 @@
 <section id="newsletter" class="newsletter-section">
     {{> "newsletter-cta" heading="The week, weighed" variant="hero"}}
 </section>
+
+{{> "brand-sendoff"}}

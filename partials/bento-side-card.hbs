@@ -1,0 +1,33 @@
+{{!-- Small stacked card for the 4 flanking slots of the homepage bento
+      grid. Shows a play button only for Watch/Listen posts (a real
+      distinction, not decoration) since those are the only pillars with
+      an actual video/audio payload. Expects post context. --}}
+<article class="bento-card">
+    <a class="bento-card__image" href="{{url}}">
+        {{#if feature_image}}
+        <img
+            srcset="{{img_url feature_image size="s"}} 600w,
+                    {{img_url feature_image size="m"}} 1000w"
+            sizes="(max-width: 600px) 100vw, 340px"
+            src="{{img_url feature_image size="m"}}"
+            loading="lazy"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+        {{else}}
+        <span class="bento-card__cover-fallback">
+            {{> "krino-mark" size="28px" ring=false mark="var(--gold)"}}
+        </span>
+        {{/if}}
+        {{#has tag="watch, listen"}}
+        <span class="bento-card__play" aria-hidden="true"></span>
+        {{/has}}
+    </a>
+    <div class="bento-card__body">
+        <p class="bento-card__eyebrow">{{#if primary_tag}}{{primary_tag.name}}{{else}}Krino Media{{/if}}</p>
+        <h3 class="bento-card__title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="bento-card__excerpt">{{excerpt words="14"}}</p>
+        <div class="bento-card__meta">
+            {{#if primary_author}}<span>{{primary_author.name}}</span><span>&middot;</span>{{/if}}
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D"}}</time>
+        </div>
+    </div>
+</article>

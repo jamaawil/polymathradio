@@ -1,0 +1,28 @@
+{{!-- One row in a spotlight-section's story list: title + excerpt + meta
+      on the left, small thumbnail on the right, divider below. Expects
+      post context. --}}
+<article class="story-row">
+    <div class="story-row__body">
+        <h3 class="story-row__title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="story-row__excerpt">{{excerpt words="18"}}</p>
+        <div class="story-row__meta">
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D"}}</time>
+            {{#if primary_author}}<span>&middot;</span><span>{{primary_author.name}}</span>{{/if}}
+        </div>
+    </div>
+    <a class="story-row__image" href="{{url}}">
+        {{#if feature_image}}
+        <img
+            src="{{img_url feature_image size="xs"}}"
+            loading="lazy"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+        {{else}}
+        <span class="story-row__cover-fallback">
+            {{> "krino-mark" size="24px" ring=false mark="var(--gold)"}}
+        </span>
+        {{/if}}
+        {{#has tag="watch, listen"}}
+        <span class="story-row__play" aria-hidden="true"></span>
+        {{/has}}
+    </a>
+</article>
