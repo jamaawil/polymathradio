@@ -27,9 +27,15 @@
       or {{#foreach authors}}), but that guidance is for POST-context author
       access. On an author-archive template this block helper is what
       actually populates {{name}}/{{bio}}/{{profile_image}} — confirmed by
-      testing: removing it left {{name}} empty. Known gscan false positive
-      for this legitimate use; Casper doesn't ship an equivalent to compare
-      against. --}}
+      testing twice now: removing it, or swapping in {{#foreach authors}},
+      both left this whole section rendering nothing (`authors` isn't a
+      populated array at this template's root context; {{#author}} is the
+      only helper that resolves fields here). Casper's own author.hbs uses
+      this same {{#author}} pattern — gscan just doesn't extend its
+      allowlist to author-{slug}.hbs override templates, only the literal
+      author.hbs filename, which is why only this file gets flagged and
+      the generic author.hbs doesn't. Confirmed false positive, not a
+      theme bug. --}}
 {{#author}}
 <section class="write-bio">
     <div class="write-bio__portrait">

@@ -5,22 +5,31 @@
       this ships the fields we can know for certain. For a specific
       episode where exact embedUrl/duration matter for Search rich
       results, add them per-post via Post settings -> Code injection
-      (head) rather than guessing here. --}}
+      (head) rather than guessing here.
+
+      Every dynamic string below is wrapped in explicit "..." quotes —
+      {{title}}/{{meta_description}}/{{@site.title}} do NOT self-quote,
+      and Handlebars' default double-stash escaping turns a literal "
+      inside the value into &quot; (not a raw quote), so quoting +
+      default escaping is what keeps this valid JSON. Shipping this
+      unquoted previously produced literally invalid JSON-LD (caught in
+      this theme's pre-release QA pass) -- worth remembering if you add
+      more dynamic fields here later. --}}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    "name": {{title}},
+    "name": "{{title}}",
     "url": "{{url absolute="true"}}",
     "uploadDate": "{{date format="YYYY-MM-DD"}}",
-    "description": {{meta_description}},
+    {{#if meta_description}}"description": "{{meta_description}}",{{/if}}
     {{#if feature_image}}"thumbnailUrl": ["{{img_url feature_image size="l"}}"],{{/if}}
     "publisher": {
         "@type": "Organization",
-        "name": {{@site.title}},
+        "name": "{{@site.title}}",
         "logo": {
             "@type": "ImageObject",
-            "url": "{{@site.url}}/favicon.ico"
+            "url": "{{#if @site.icon}}{{@site.icon}}{{else}}{{@site.url}}/favicon.ico{{/if}}"
         }
     }
 }
