@@ -87,7 +87,6 @@ empty pillar never leaves a blank gap:
 | Section (top to bottom) | Query | Card partial |
 |---|---|---|
 | Hero | 1 latest Watch/Listen post | `episode-spotlight` |
-| 6-tile nav | static links to all 6 sections | — |
 | The Breakdown | 1 post tagged `breakdown` | `breakdown-card` |
 | Latest on Watch | 3 latest `primary_tag:watch` | `watch-card` |
 | Latest episodes | 3 latest `primary_tag:listen` | `episode-card` |
@@ -97,11 +96,10 @@ empty pillar never leaves a blank gap:
 | Live & breaking | 3 latest `primary_tag:stream` | `breaking-row` |
 | Newsletter | — | `newsletter-cta` |
 
-The 6-tile nav (`.tri-link--six`, a modifier on the original 4-tile
-`.tri-link` component) covers Watch/Listen/Read/Learn/Shop/Stream — the
-original 4-tile version and the 3-tile `.tri-link--compact` (used on
-`/advertise/`) are untouched, since other pages depend on their exact
-item counts for the border/grid math.
+There's no separate tile-grid nav on the homepage — the header
+(`site-header.hbs`) already links to all six sections, so a second set of
+tiles repeating the same links right below the hero was redundant and got
+dropped.
 
 **Card thumbnails all have a fallback now**: `watch-card`, `watch-feature`,
 `episode-card`, `learn-card`, and `product-card` fall back to the Krino
